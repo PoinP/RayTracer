@@ -82,7 +82,7 @@ void HittableList::resize(unsigned int newSize)
 {
     Hittable** newList = new Hittable*[newSize];
 
-    for (int i = 0; i < m_Size && i < newSize; i++)
+    for (int i = 0; i < m_Size && i < (int)newSize; i++)
     {
         newList[i] = m_Objects[i];
     }

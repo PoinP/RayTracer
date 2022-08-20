@@ -1,6 +1,7 @@
 #include "Vector3.h"
 
 #include <math.h>
+#include "Utility.h"
 
 Vector3::Vector3()
     : m_Coords { 0, 0, 0 }
@@ -90,6 +91,16 @@ double Vector3::length() const
 double Vector3::lengthSquared() const
 {
     return m_Coords[0] * m_Coords[0] + m_Coords[1] * m_Coords[1] + m_Coords[2] * m_Coords[2];
+}
+
+Vector3 Vector3::random()
+{
+    return Vector3(randomDouble(), randomDouble(), randomDouble());
+}
+
+Vector3 Vector3::random(int min, int max)
+{
+    return Vector3(randomDouble(min, max), randomDouble(min, max), randomDouble(min, max));
 }
 
 void operator<<(std::ostream& stream, const Vector3& vector)

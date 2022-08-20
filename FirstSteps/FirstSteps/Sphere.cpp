@@ -29,7 +29,7 @@ bool Sphere::isHit(const Ray& ray, double minT, double maxT, HitRecord& record) 
 
     record.t = root;
     record.hitPoint = ray.at(record.t);
-    Vector3 normalVector = record.hitPoint - m_Center; // why dividing by radius?
+    Vector3 normalVector = (record.hitPoint - m_Center) / m_Radius; // (why dividing by radius?) We divide by radius because we need a normal unit vector!
     record.setFaceNormal(ray, normalVector);
     
     return true;

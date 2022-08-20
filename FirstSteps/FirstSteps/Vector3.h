@@ -29,6 +29,9 @@ public:
 	double length() const;
 	double lengthSquared() const;
 
+	static Vector3 random();
+	static Vector3 random(int min, int max);
+
 private:
 	double m_Coords[3];
 };
