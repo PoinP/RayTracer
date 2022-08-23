@@ -5,10 +5,13 @@
 #include "Vector3.h"
 #include "Ray.h"
 
+class Material;
+
 struct HitRecord 
 {
 	Point3 hitPoint;
 	Vector3 normalVector;
+	Material* materialPtr;
 	double t = 0;
 	bool frontFacing{};
 

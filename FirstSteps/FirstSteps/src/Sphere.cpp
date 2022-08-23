@@ -1,7 +1,7 @@
 #include "Sphere.h"
 
-Sphere::Sphere(const Point3& center, double radius)
-    : m_Center(center), m_Radius(radius)
+Sphere::Sphere(const Point3& center, double radius, Material* material)
+    : m_Center(center), m_Radius(radius), m_MaterialPtr(material)
 {
 }
 
@@ -31,6 +31,7 @@ bool Sphere::isHit(const Ray& ray, double minT, double maxT, HitRecord& record) 
     record.hitPoint = ray.at(record.t);
     Vector3 normalVector = (record.hitPoint - m_Center) / m_Radius; // (why dividing by radius?) We divide by radius because we need a normal unit vector!
     record.setFaceNormal(ray, normalVector);
+    record.materialPtr = m_MaterialPtr;
     
     return true;
 }

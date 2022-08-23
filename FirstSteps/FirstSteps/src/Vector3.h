@@ -29,6 +29,8 @@ public:
 	double length() const;
 	double lengthSquared() const;
 
+	bool nearZero() const;
+
 	static Vector3 random();
 	static Vector3 random(int min, int max);
 
@@ -43,6 +45,7 @@ void operator<<(std::ostream& stream, const Vector3& vector);
 
 Vector3 operator+(const Vector3& vector1, const Vector3& vector2);
 Vector3 operator-(const Vector3& vector1, const Vector3& vector2);
+Vector3 operator*(const Vector3& vector1, const Vector3& vector2);
 Vector3 operator*(const Vector3& vector, double scalar);
 Vector3 operator*(double scalar, const Vector3& vector);
 Vector3 operator/(const Vector3& vector, double scalar);
@@ -51,5 +54,7 @@ Vector3 operator/(double scalar, const Vector3& vector);
 double dotProduct(const Vector3& vector1, const Vector3& vector2);
 Vector3 crossProduct(const Vector3& vector1, const Vector3& vector2);
 Vector3 unitVector(const Vector3& vector);
+Vector3 reflect(const Vector3& v, const Vector3& n);
+
 
 #endif // !VECTOR3_HEADER

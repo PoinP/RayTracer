@@ -93,6 +93,12 @@ double Vector3::lengthSquared() const
     return m_Coords[0] * m_Coords[0] + m_Coords[1] * m_Coords[1] + m_Coords[2] * m_Coords[2];
 }
 
+bool Vector3::nearZero() const
+{
+    const double limit = 0.000000001;
+    return (fabs(m_Coords[0]) < limit && fabs(m_Coords[1]) < limit && fabs(m_Coords[2]) < limit);
+}
+
 Vector3 Vector3::random()
 {
     return Vector3(randomDouble(), randomDouble(), randomDouble());
@@ -116,6 +122,11 @@ Vector3 operator+(const Vector3& vector1, const Vector3& vector2)
 Vector3 operator-(const Vector3& vector1, const Vector3& vector2)
 {
     return Vector3(vector1.x() - vector2.x(), vector1.y() - vector2.y(), vector1.z() - vector2.z());
+}
+
+Vector3 operator*(const Vector3& vector1, const Vector3& vector2)
+{
+    return Vector3(vector1.x() * vector2.x(), vector1.y() * vector2.y(), vector1.z() * vector2.z());
 }
 
 Vector3 operator*(const Vector3& vector, double scalar)
@@ -153,4 +164,9 @@ Vector3 crossProduct(const Vector3& vector1, const Vector3& vector2)
 Vector3 unitVector(const Vector3& vector)
 {
     return vector / vector.length();
+}
+
+Vector3 reflect(const Vector3& v, const Vector3& n)
+{
+    return v - 2 * dotProduct(v, n) * n;
 }

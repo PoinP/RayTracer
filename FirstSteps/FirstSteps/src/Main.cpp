@@ -7,6 +7,9 @@
 #include "Sphere.h"
 #include "HittableList.h"
 #include "Camera.h"
+#include "Material.h"
+#include "Diffuse.h"
+#include "Metal.h"
 
 void createImage(std::ofstream& output, int width, int height);
 Color rayColor(const Ray& ray, const HittableList& world, unsigned int depth);
@@ -29,10 +32,16 @@ void createImage(std::ofstream& output, int width, int height)
 	const unsigned int sampleCount = 100;
 	const unsigned int maxDepth = 50;
 
+	Material* materialGround = new Diffuse(Color(0.8, 0.8, 0.0));
+	Material* materialCenter = new Diffuse(Color(0.7, 0.3, 0.3));
+	Material* materialLeft = new Metal(Color(0.8, 0.8, 0.8), 0.2);
+	Material* materialRight = new Metal(Color(0.8, 0.6, 0.2), 0.9);
+
 	HittableList objects;
-	objects.add(new Sphere(Point3(0, -100.5, -1), 100));
-	objects.add(new Sphere(Point3(0, 0, -1), 0.5));
-	objects.add(new Sphere(Point3(1, 1, -1), 0.6));
+	objects.add(new Sphere(Point3(0.0, -100.5, -1.0), 100.0, materialGround));
+	objects.add(new Sphere(Point3(0.0, 0.0, -1.0), 0.5, materialCenter));
+	objects.add(new Sphere(Point3(-1.0, 0.0, -1.0), 0.5, materialLeft));
+	objects.add(new Sphere(Point3(1.0, 0.0, -1.0), 0.5, materialRight));
 
 	output << "P3" << std::endl;
 	output << width << " " << height << std::endl;
@@ -72,8 +81,12 @@ Color rayColor(const Ray& ray, const HittableList& world, unsigned int depth)
 
 	if (world.isHit(ray, 0.001, INF, record))
 	{
-		Point3 targetPoint = record.hitPoint + record.normalVector + randomUnitVector();
-		return 0.5 * rayColor(Ray(record.hitPoint, targetPoint - record.hitPoint), world, depth - 1);
+		Ray scatteredRay;
+		Color reduction;
+
+		if (record.materialPtr->scatter(ray, record, reduction, scatteredRay))
+			return reduction * rayColor(scatteredRay, world, depth - 1);
+		return Color(0, 0, 0);
 	}
 
 	Vector3 unitDirecion = unitVector(ray.direction());

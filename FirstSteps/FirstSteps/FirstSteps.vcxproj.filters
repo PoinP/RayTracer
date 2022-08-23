@@ -15,48 +15,66 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Vector3.h">
+    <ClInclude Include="src\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Color.h">
+    <ClInclude Include="src\Color.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Ray.h">
+    <ClInclude Include="src\Hittable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Hittable.h">
+    <ClInclude Include="src\HittableList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Sphere.h">
+    <ClInclude Include="src\Ray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HittableList.h">
+    <ClInclude Include="src\Sphere.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utility.h">
+    <ClInclude Include="src\Utility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
+    <ClInclude Include="src\Vector3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Diffuse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Metal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="src\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Vector3.cpp">
+    <ClCompile Include="src\HittableList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Ray.cpp">
+    <ClCompile Include="src\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sphere.cpp">
+    <ClCompile Include="src\Ray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HittableList.cpp">
+    <ClCompile Include="src\Sphere.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
+    <ClCompile Include="src\Vector3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Diffuse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Metal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
