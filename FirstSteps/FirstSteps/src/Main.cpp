@@ -10,10 +10,12 @@
 #include "Material.h"
 #include "Diffuse.h"
 #include "Metal.h"
+#include "Dielectric.h"
 
 void createImage(std::ofstream& output, int width, int height);
 Color rayColor(const Ray& ray, const HittableList& world, unsigned int depth);
 double sphereHit(const Vector3& center, double radius, const Ray& ray);
+HittableList createWorld();
 
 int main()
 {
@@ -32,20 +34,11 @@ void createImage(std::ofstream& output, int width, int height)
 	const unsigned int sampleCount = 100;
 	const unsigned int maxDepth = 50;
 
-	Material* materialGround = new Diffuse(Color(0.8, 0.8, 0.0));
-	Material* materialCenter = new Diffuse(Color(0.7, 0.3, 0.3));
-	Material* materialLeft = new Metal(Color(0.8, 0.8, 0.8), 0.2);
-	Material* materialRight = new Metal(Color(0.8, 0.6, 0.2), 0.9);
-
-	HittableList objects;
-	objects.add(new Sphere(Point3(0.0, -100.5, -1.0), 100.0, materialGround));
-	objects.add(new Sphere(Point3(0.0, 0.0, -1.0), 0.5, materialCenter));
-	objects.add(new Sphere(Point3(-1.0, 0.0, -1.0), 0.5, materialLeft));
-	objects.add(new Sphere(Point3(1.0, 0.0, -1.0), 0.5, materialRight));
-
 	output << "P3" << std::endl;
 	output << width << " " << height << std::endl;
 	output << "255" << std::endl;
+
+	HittableList world = createWorld();
 
 	for (int i = 0; i < height; ++i)
 	{
@@ -60,7 +53,7 @@ void createImage(std::ofstream& output, int width, int height)
 
 				Ray ray = cam.getRay(u, v);
 
-				pixel += rayColor(ray, objects, maxDepth);
+				pixel += rayColor(ray, world, maxDepth);
 			}
 
 			writeColor(output, pixel, sampleCount);
@@ -94,16 +87,20 @@ Color rayColor(const Ray& ray, const HittableList& world, unsigned int depth)
 	return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.4, 0.7, 1.0);
 }
 
-double sphereHit(const Vector3& center, double radius, const Ray& ray)
+HittableList createWorld()
 {
-	Vector3 diff = ray.origin() - center;
-	double a = ray.direction().lengthSquared();
-	double halfB = dotProduct(ray.direction(), diff);
-	double c = diff.lengthSquared() - radius * radius;
-	double discriminant = halfB * halfB - a * c;
+	Material* materialGround = new Diffuse(Color(0.8, 0.8, 0.0));
+	Material* materialCenter = new Diffuse(Color(0.7, 0.3, 0.3));
+	Material* materialLeft = new Metal(Color(0.8, 0.8, 0.8), 0.2);
+	Material* materialRight = new Dielectric(1.33);
+	//Material* materialRight = new Metal(Color(0.8, 0.6, 0.2), 0.9);
 
-	if (discriminant < 0)
-		return -1.0;
-	else
-		return (-halfB - sqrt(discriminant)) / a;
+	HittableList objects;
+	objects.add(new Sphere(Point3(0.0, -100.5, -1.0), 100.0, materialGround));
+	objects.add(new Sphere(Point3(0.0, 0.0, -1.0), 0.5, materialCenter));
+	objects.add(new Sphere(Point3(-1.0, 0.0, -1.0), 0.5, materialLeft));
+	objects.add(new Sphere(Point3(1.0, 0.0, -1.0), 0.5, materialRight));
+	objects.add(new Sphere(Point3(1.0, 0.0, -1.0), -0.4, materialRight));
+
+	return objects;
 }

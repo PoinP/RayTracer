@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Dielectric.h" />
     <ClInclude Include="src\Metal.h" />
     <ClInclude Include="src\Diffuse.h" />
     <ClInclude Include="src\Material.h" />
@@ -156,6 +157,7 @@
     <ClInclude Include="src\Vector3.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Dielectric.cpp" />
     <ClCompile Include="src\Metal.cpp" />
     <ClCompile Include="src\Diffuse.cpp" />
     <ClCompile Include="src\Material.cpp" />

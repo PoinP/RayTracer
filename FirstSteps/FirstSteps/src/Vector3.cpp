@@ -170,3 +170,11 @@ Vector3 reflect(const Vector3& v, const Vector3& n)
 {
     return v - 2 * dotProduct(v, n) * n;
 }
+
+Vector3 refract(const Vector3& unitVector, const Vector3& normalVector, double refrRatio)
+{
+    double cosTheta = fabs(dotProduct(-unitVector, normalVector));
+    Vector3 outboundPerp = refrRatio * (unitVector + cosTheta * normalVector);
+    Vector3 outboundParallel = -sqrt(fabs(1.0 - outboundPerp.lengthSquared())) * normalVector;
+    return outboundPerp + outboundParallel;
+}

@@ -55,6 +55,7 @@ double dotProduct(const Vector3& vector1, const Vector3& vector2);
 Vector3 crossProduct(const Vector3& vector1, const Vector3& vector2);
 Vector3 unitVector(const Vector3& vector);
 Vector3 reflect(const Vector3& v, const Vector3& n);
+Vector3 refract(const Vector3& unitVector, const Vector3& normalVector, double refrRatio);
 
 
 #endif // !VECTOR3_HEADER
