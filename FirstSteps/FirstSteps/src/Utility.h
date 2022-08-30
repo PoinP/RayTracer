@@ -30,19 +30,29 @@ inline double clamp(double x, double min, double max)
     return x;
 }
 
-inline Point3 randomPointInUnitSphere()
+inline Vector3 randomInUnitSphere()
 {
     while (true)
     {
-        Point3 point = Vector3::random(-1, 1);
-        if (point.lengthSquared() >= 1) continue;
-        return point;
+        Vector3 vec = Vector3::random(-1, 1);
+        if (vec.lengthSquared() >= 1) continue;
+        return vec;
     }
 }
 
 inline Vector3 randomUnitVector()
 {
-    return unitVector(randomPointInUnitSphere());
+    return unitVector(randomInUnitSphere());
+}
+
+inline Vector3 randomInUnitDisk()
+{
+    while (true)
+    {
+        Vector3 vec = Vector3(randomDouble(), randomDouble(), 0);
+        if (vec.lengthSquared() > 1) continue;
+        return vec;
+    }
 }
 
 #endif // !UTILITY_H

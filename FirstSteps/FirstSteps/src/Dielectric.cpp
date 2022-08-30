@@ -29,6 +29,11 @@ bool Dielectric::scatter(const Ray& ray, const HitRecord& record, Color& reducti
     return true;
 }
 
+bool Dielectric::transmit() const
+{
+    return true;
+}
+
 double Dielectric::reflectance(double cosTheta, double refrIndex) const
 {
     const double airRefractionIndex = 1.003;

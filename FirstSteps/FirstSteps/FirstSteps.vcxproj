@@ -143,7 +143,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\RayColor.h" />
+    <ClInclude Include="src\Worlds.h" />
+    <ClInclude Include="src\LightSource.h" />
     <ClInclude Include="src\Dielectric.h" />
+    <ClInclude Include="src\Materials.h" />
     <ClInclude Include="src\Metal.h" />
     <ClInclude Include="src\Diffuse.h" />
     <ClInclude Include="src\Material.h" />
@@ -155,8 +159,11 @@
     <ClInclude Include="src\Ray.h" />
     <ClInclude Include="src\Sphere.h" />
     <ClInclude Include="src\Vector3.h" />
+    <ClInclude Include="src\Worker.h" />
+    <ClInclude Include="src\Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\LightSource.cpp" />
     <ClCompile Include="src\Dielectric.cpp" />
     <ClCompile Include="src\Metal.cpp" />
     <ClCompile Include="src\Diffuse.cpp" />
@@ -167,6 +174,7 @@
     <ClCompile Include="src\Ray.cpp" />
     <ClCompile Include="src\Sphere.cpp" />
     <ClCompile Include="src\Vector3.cpp" />
+    <ClCompile Include="src\Worker.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

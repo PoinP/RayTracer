@@ -12,6 +12,7 @@ bool Diffuse::scatter(const Ray& ray, const HitRecord& record, Color& reduction,
         scatterDirection = record.normalVector;
 
     scatter = Ray(record.hitPoint, scatterDirection);
+    
     reduction = m_Albedo;
     return true;
 }

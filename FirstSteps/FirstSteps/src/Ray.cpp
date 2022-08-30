@@ -1,5 +1,7 @@
 #include "Ray.h"
 
+#include "Materials.h"
+
 Ray::Ray()
 {
 }

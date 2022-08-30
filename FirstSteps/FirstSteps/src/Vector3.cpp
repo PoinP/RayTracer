@@ -109,9 +109,11 @@ Vector3 Vector3::random(int min, int max)
     return Vector3(randomDouble(min, max), randomDouble(min, max), randomDouble(min, max));
 }
 
-void operator<<(std::ostream& stream, const Vector3& vector)
+std::ostream& operator<<(std::ostream& stream, const Vector3& vector)
 {
     stream << vector.x() << " " << vector.y() << " " << vector.z();
+
+    return stream;
 }
 
 Vector3 operator+(const Vector3& vector1, const Vector3& vector2)

@@ -10,6 +10,7 @@ public:
 	Dielectric(double refractiveIndex);
 
 	virtual bool scatter(const Ray& ray, const HitRecord& record, Color& reduction, Ray& scatteredRay) const;
+	virtual bool transmit() const override;
 
 private:
 	double m_RefractiveIndex;

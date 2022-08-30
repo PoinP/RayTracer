@@ -41,7 +41,7 @@ private:
 using Point3 = Vector3;
 using Color = Vector3;
 
-void operator<<(std::ostream& stream, const Vector3& vector);
+std::ostream& operator<<(std::ostream& stream, const Vector3& vector);
 
 Vector3 operator+(const Vector3& vector1, const Vector3& vector2);
 Vector3 operator-(const Vector3& vector1, const Vector3& vector2);

@@ -1,106 +1,185 @@
 #include <iostream>
 #include <fstream>
+#include <thread>
+#include <vector>
+#include <string>
 
 #include "Vector3.h"
 #include "Ray.h"
 #include "Color.h"
 #include "Sphere.h"
-#include "HittableList.h"
 #include "Camera.h"
-#include "Material.h"
-#include "Diffuse.h"
-#include "Metal.h"
-#include "Dielectric.h"
+#include "Materials.h"
+#include "Worker.h"
+#include "Worlds.h"
+#include "RayColor.h"
 
-void createImage(std::ofstream& output, int width, int height);
-Color rayColor(const Ray& ray, const HittableList& world, unsigned int depth);
-double sphereHit(const Vector3& center, double radius, const Ray& ray);
-HittableList createWorld();
+#include "Timer.h"
+
+#define ASYNC
+
+struct Workspace;
+
+void createImage(std::ofstream& output, const Workspace& workSpace);
+void createImageHT(std::ofstream& output, const Workspace& workSpace);
+
+void writeToOutput(std::ostream& output, Color** colors, unsigned width, unsigned height);
+
+struct Workspace
+{
+	unsigned width;
+	unsigned height;
+	unsigned sampleCount;
+	unsigned maxDepth;
+	CameraOptions camOptions;
+	HittableList world;
+};
+
+Workspace getWorkspace()
+{
+	const double aspectRatio = 16.0 / 9.0;
+	const int width = 1920;
+	const int height = static_cast<int>(width / aspectRatio);
+	const unsigned int sampleCount = 200;
+	const unsigned int maxDepth = 50;
+
+	CameraOptions camOptions = {
+		Point3(0.0, 0.0, -1.0),
+		Point3(0.0, 1.5, 5.0),
+		Point3(0.0, 1.0, 0.0),
+		aspectRatio,
+		20,
+		0,
+		(Point3(0.0, 0.0, -1.0) - Point3(0.0, 1.5, 5.0)).length()
+	};
+
+	HittableList world = createWorld();
+
+	return Workspace{
+		width,
+		height,
+		sampleCount,
+		maxDepth,
+		camOptions,
+		world
+	};
+}
 
 int main()
 {
-	const double aspectRatio = 16.0 / 9.0;
-	const int width = 400;
-	const int height = static_cast<int>(width / aspectRatio);
+	Timer t;
 
-	std::ofstream stream("image.ppm");
-	createImage(stream, width, height);
+	Workspace ws = getWorkspace();
+
+	std::ofstream stream("image-ht-test.ppm");
+	//std::ofstream stream("image-nht-test.ppm");
+
+#ifdef ASYNC
+	createImageHT(stream, ws);
+#else
+	createImage(stream, ws);
+#endif // ASYNC
+
 	stream.close();
 };
 
-void createImage(std::ofstream& output, int width, int height)
-{
-	Camera cam;
-	const unsigned int sampleCount = 100;
-	const unsigned int maxDepth = 50;
 
+void createImageHT(std::ofstream& output, const Workspace& ws)
+{
+	Camera cam(ws.camOptions);
+
+	Color** colors = new Color * [ws.height];
+	for (int i = 0; i < (int)ws.height; i++)
+		colors[i] = new Color[ws.width];
+
+	int availableThreads = std::thread::hardware_concurrency();
+	std::vector<std::thread> threads(availableThreads);
+
+	Worker::setupWorkforce(ws.width, ws.height, 32);
+
+	for (std::thread& thread : threads)
+		thread = std::thread(Worker{}, cam, ws.world, ws.sampleCount, ws.maxDepth, colors);
+
+	for (std::thread& thread : threads)
+	{
+		thread.join();
+		std::cout << "\rPercantage: " << 100 << std::flush;
+	}
+
+	writeToOutput(output, colors, ws.width, ws.height);
+
+	for (size_t i = 0; i < ws.height; i++)
+		delete[] colors[i];
+
+	delete[] colors;
+}
+
+
+void createImage(std::ofstream& output, const Workspace& ws)
+{
+	Camera cam(ws.camOptions);
+
+	Color** colors = new Color * [ws.height];
+	for (size_t i = 0; i < ws.height; i++)
+		colors[i] = new Color[ws.width];
+
+	HittableList world = createWorld();
+
+	for (size_t i = 0; i < ws.height; ++i)
+	{
+		for (size_t j = 0; j < ws.width; ++j)
+		{
+			Color pixel;
+
+			for (size_t s = 0; s < ws.sampleCount; ++s)
+			{
+				double u = (j + randomDouble()) / ((double)ws.width - 1);
+				double v = (i + randomDouble()) / ((double)ws.height - 1);
+
+				Ray ray = cam.getRay(u, v);
+
+				pixel += rayColor(ray, world, ws.maxDepth);
+			}
+
+			colors[i][j] = getColor(pixel, ws.sampleCount);
+		}
+
+		int percentage = (int)((i / ((double)ws.height - 1)) * 100);
+		std::cout << "\rPercantage: " << percentage << std::flush;
+	}
+
+	writeToOutput(output, colors, ws.width, ws.height);
+
+	std::cout << "\nDone!" << std::endl;
+}
+
+void writeToOutput(std::ostream& output, Color** colors, unsigned width, unsigned height)
+{
+	std::cout << "\nWriting to file:" << std::endl;
 	output << "P3" << std::endl;
 	output << width << " " << height << std::endl;
 	output << "255" << std::endl;
 
-	HittableList world = createWorld();
+	std::string fileContent;
+	fileContent.reserve(2048);
 
-	for (int i = 0; i < height; ++i)
+	for (size_t i = 0; i < height; i++)
 	{
-		for (int j = 0; j < width; ++j)
+		for (size_t j = 0; j < width; j++)
 		{
-			Color pixel;
+			fileContent += std::to_string((int)colors[i][j].x()) + " " +
+				std::to_string((int)colors[i][j].y()) + " " +
+				std::to_string((int)colors[i][j].z()) + "\n";
 
-			for (int s = 0; s < sampleCount; ++s)
+			if (fileContent.size() >= 2048 || (i + 1 >= height && j + 1 >= width))
 			{
-				double u = (j + randomDouble()) / ((double)width - 1);
-				double v = (i + randomDouble()) / ((double)height - 1);
-
-				Ray ray = cam.getRay(u, v);
-
-				pixel += rayColor(ray, world, maxDepth);
+				output << fileContent;
+				fileContent.clear();
+				fileContent.reserve(2048);
 			}
-
-			writeColor(output, pixel, sampleCount);
 		}
 
 		int percentage = (int)((i / ((double)height - 1)) * 100);
 		std::cout << "\rPercantage: " << percentage << std::flush;
 	}
-
-	std::cout << "\nDone!" << std::endl;
-}
-
-Color rayColor(const Ray& ray, const HittableList& world, unsigned int depth)
-{
-	HitRecord record;
-
-	if (depth <= 0) return Color(0, 0, 0);
-
-	if (world.isHit(ray, 0.001, INF, record))
-	{
-		Ray scatteredRay;
-		Color reduction;
-
-		if (record.materialPtr->scatter(ray, record, reduction, scatteredRay))
-			return reduction * rayColor(scatteredRay, world, depth - 1);
-		return Color(0, 0, 0);
-	}
-
-	Vector3 unitDirecion = unitVector(ray.direction());
-	double t = 0.5 * (unitDirecion.y() + 1.0);
-	return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.4, 0.7, 1.0);
-}
-
-HittableList createWorld()
-{
-	Material* materialGround = new Diffuse(Color(0.8, 0.8, 0.0));
-	Material* materialCenter = new Diffuse(Color(0.7, 0.3, 0.3));
-	Material* materialLeft = new Metal(Color(0.8, 0.8, 0.8), 0.2);
-	Material* materialRight = new Dielectric(1.33);
-	//Material* materialRight = new Metal(Color(0.8, 0.6, 0.2), 0.9);
-
-	HittableList objects;
-	objects.add(new Sphere(Point3(0.0, -100.5, -1.0), 100.0, materialGround));
-	objects.add(new Sphere(Point3(0.0, 0.0, -1.0), 0.5, materialCenter));
-	objects.add(new Sphere(Point3(-1.0, 0.0, -1.0), 0.5, materialLeft));
-	objects.add(new Sphere(Point3(1.0, 0.0, -1.0), 0.5, materialRight));
-	objects.add(new Sphere(Point3(1.0, 0.0, -1.0), -0.4, materialRight));
-
-	return objects;
 }

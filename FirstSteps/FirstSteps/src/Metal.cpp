@@ -10,7 +10,7 @@ Metal::Metal(const Color& albedo, double fuzz)
 bool Metal::scatter(const Ray& ray, const HitRecord& record, Color& reduction, Ray& scatter) const
 {
     Vector3 reflected = reflect(unitVector(ray.direction()), record.normalVector);
-    scatter = Ray(record.hitPoint, reflected + m_Fuzz * randomPointInUnitSphere());
+    scatter = Ray(record.hitPoint, reflected + m_Fuzz * randomInUnitSphere());
     reduction = m_Albedo;
     return (dotProduct(scatter.direction(), record.normalVector));
 }
