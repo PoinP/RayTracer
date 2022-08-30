@@ -9,6 +9,6 @@ With parallel rendering the the scene below took on average 34 seconds to render
 With single thread rendering the scene below took on average 247 seconds to render.
 Which is around 7 times faster.
 
-I may be able to tweak the rendering time by changing the `blockSize`, but honestly I can not really care less. I am happy with the current boost in performance!
+I may be able to tweak the rendering time by changing the `blockSize`, but honestly I could not really care less. I am happy with the current boost in performance!
 
 ![Output](/FirstSteps/out/Hyper-Thread-Test.png)
