@@ -3,13 +3,15 @@
 #define WORLDS_H
 
 #include "Sphere.h"
+#include "MovingSphere.h"
 
 inline HittableList createWorld()
 {
 	Material* sunMaterial = new Diffuse(Color(0.9, 0.7, 0.4));
 
 	Material* materialGround = new Diffuse(Color(0.8, 0.8, 0.0));
-	Material* materialCenter = new Diffuse(Color(0.1, 0.2, 0.5));
+	//Material* materialCenter = new Diffuse(Color(0.1, 0.2, 0.5));
+	Material* materialCenter = new Diffuse(Color(1.0, 0.2, 0.5));
 	Material* materialLeft = new Dielectric(1.2);
 	Material* materialRight = new Metal(Color(0.8, 0.6, 0.2), 0.0);
 	//Material* materialRight = new Metal(Color(0.8, 0.6, 0.2), 0.9);
@@ -19,7 +21,8 @@ inline HittableList createWorld()
 	//objects.add(new Sphere(Point3(0.0, 2, -1), 0.5, sunMaterial));
 
 	objects.add(new Sphere(Point3(0.0, -100.5, -1.0), 100.0, materialGround));
-	objects.add(new Sphere(Point3(0.0, 0.0, -1.0), 0.5, materialCenter));
+	//objects.add(new Sphere(Point3(0.0, 0.0, -1.0), 0.5, materialCenter));
+	objects.add(new MovingSphere(Point3(0.0, 0.0, -1.0), Point3(0.0, randomDouble(0, 0.5), -1.0), 0.5, 1.0, 0.2, materialCenter));
 	objects.add(new Sphere(Point3(-1.0, 0.0, -1.0), 0.5, materialLeft));
 	//objects.add(new Sphere(Point3(-1.0, 0.0, -1.0), -0.45, materialLeft));
 	objects.add(new Sphere(Point3(1.0, 0.0, -1.0), 0.5, materialRight));

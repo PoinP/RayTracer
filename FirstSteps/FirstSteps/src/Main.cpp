@@ -38,22 +38,22 @@ struct Workspace
 Workspace getWorkspace()
 {
 	const double aspectRatio = 16.0 / 9.0;
-	const int width = 1920;
+	const int width = 600;
 	const int height = static_cast<int>(width / aspectRatio);
-	const unsigned int sampleCount = 600;
+	const unsigned int sampleCount = 100;
 	const unsigned int maxDepth = 50;
 
-	CameraOptions camOptions = {
-		Point3(0.0, 0.0, 0.0),
-		Point3(13.0, 2.0, 3.0),
-		Point3(0.0, 1.0, 0.0),
-		aspectRatio,
-		20,
-		0.1,
-		10
-	};
+	//CameraOptions camOptions = {
+	//	Point3(0.0, 0.0, 0.0),
+	//	Point3(13.0, 2.0, 3.0),
+	//	Point3(0.0, 1.0, 0.0),
+	//	aspectRatio,
+	//	20,
+	//	0.1,
+	//	10
+	//};
 	
-	/*CameraOptions camOptions = {
+	CameraOptions camOptions = {
 		Point3(0.0, 0.0, -1.0),
 		Point3(0.0, 1.5, 5.0),
 		Point3(0.0, 1.0, 0.0),
@@ -61,9 +61,9 @@ Workspace getWorkspace()
 		20,
 		0,
 		(Point3(0.0, 0.0, -1.0) - Point3(0.0, 1.5, 5.0)).length()
-	};*/
+	};
 
-	HittableList world = generateRandomWorld();
+	HittableList world = createWorld();
 
 	return Workspace{
 		width,
@@ -81,8 +81,7 @@ int main()
 
 	Workspace ws = getWorkspace();
 
-	std::ofstream stream("final-1080p.ppm");
-	//std::ofstream stream("image-nht-test.ppm");
+	std::ofstream stream("image-blur-new.ppm");
 
 #ifdef ASYNC
 	createImageHT(stream, ws);
@@ -105,7 +104,7 @@ void createImageHT(std::ofstream& output, const Workspace& ws)
 	int availableThreads = std::thread::hardware_concurrency();
 	std::vector<std::thread> threads(availableThreads);
 
-	Worker::setupWorkforce(ws.width, ws.height, 16);
+	Worker::setupWorkforce(ws.width, ws.height, 32);
 
 	for (std::thread& thread : threads)
 		thread = std::thread(Worker{}, cam, ws.world, ws.sampleCount, ws.maxDepth, colors);

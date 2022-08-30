@@ -24,7 +24,7 @@ bool Dielectric::scatter(const Ray& ray, const HitRecord& record, Color& reducti
     else
         scatterDirection = refract(unitDirectionVector, record.normalVector, refrRatio);
 
-    scatteredRay = Ray(record.hitPoint, scatterDirection);
+    scatteredRay = Ray(record.hitPoint, scatterDirection, ray.time());
     reduction = Color(1.0, 1.0, 1.0);
     return true;
 }

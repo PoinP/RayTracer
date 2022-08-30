@@ -11,7 +11,7 @@ LightSource::LightSource(const Point3& origin, double softness)
 bool LightSource::isInShadow(const Ray& ray, const HitRecord& record, const HittableList& world) const
 {
 	Vector3 shadowVector = (m_Origin + randomInUnitSphere() * m_Softness) - record.hitPoint;
-	Ray shadowRay = Ray(record.hitPoint, shadowVector);
+	Ray shadowRay = Ray(record.hitPoint, shadowVector, ray.time());
 	HitRecord dummyRecord;
 
 	bool isReflecting = dotProduct(record.normalVector, ray.direction()) > 0;

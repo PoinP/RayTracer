@@ -16,3 +16,5 @@ I may be able to tweak the rendering time by changing the `blockSize`, but hones
 The picture below is the rendering from the Raytracing in a weekend book. It took around 33 minutes to render:
 
 ![Render](/FirstSteps/out/RTWeekend.png)
+
+    > Side note: If you need to use random numbers in a number of threads `thread_safe` is great!
