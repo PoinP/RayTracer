@@ -19,7 +19,7 @@ inline Color rayColor(const Ray& ray, const HittableList& world, unsigned int de
 
 	if (depth <= 0) return Color(0, 0, 0);
 
-	const LightSource light = LightSource(Point3(0.0, 3, -1), 0.4);
+	const LightSource light = LightSource(Point3(0.0, 16, 0), 0.4);
 
 	if (world.isHit(ray, 0.001, INF, record))
 	{
@@ -28,8 +28,8 @@ inline Color rayColor(const Ray& ray, const HittableList& world, unsigned int de
 
 		if (record.materialPtr->scatter(ray, record, reduction, scatteredRay))
 		{
-			if (light.isInShadow(scatteredRay, record, world))
-				return Color(0.0, 0.0, 0.0);
+			/*if (light.isInShadow(scatteredRay, record, world))
+				return Color(0.0, 0.0, 0.0);*/
 
 			return reduction * rayColor(scatteredRay, world, depth - 1);
 		}

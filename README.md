@@ -12,3 +12,7 @@ Which is around 7 times faster.
 I may be able to tweak the rendering time by changing the `blockSize`, but honestly I could not really care less. I am happy with the current boost in performance!
 
 ![Output](/FirstSteps/out/Hyper-Thread-Test.png)
+
+The picture below is the rendering from the Raytracing in a weekend book. It took around 33 minutes to render:
+
+![Render](/FirstSteps/out/RTWeekend.png)
