@@ -3,8 +3,9 @@
 #define UTILITY_H
 
 #include <limits>
-#include <stdlib.h>
 #include <random>
+#include <mutex>
+#include <array>
 
 const double INF = std::numeric_limits<double>::infinity();
 const double PI = 3.1415926535897932385;
@@ -14,29 +15,29 @@ inline double degreesToRadians(double degrees)
     return degrees * PI / 180.0;
 }
 
-inline std::mt19937 getPersonalRNG() {
-    std::random_device r;
-    std::seed_seq seed{ r(), r(), r(), r(), r(), r(), r(), r() };
-    return std::mt19937(seed);
+inline std::mt19937_64 getPersonalRNG() 
+{
+    std::random_device rd;
+    
+    auto randVals = std::array<std::mt19937_64::result_type, std::mt19937_64::state_size>{};
+
+    for (auto& val : randVals)
+        val = (static_cast<uint64_t>(rd()) << 32) | static_cast<uint64_t>(rd());
+
+    std::seed_seq seed(randVals.begin(), randVals.end());
+    return std::mt19937_64(seed);
 }
 
 inline double randomDouble()
 {
-    static thread_local std::mt19937 generator = getPersonalRNG();
-    std::uniform_real_distribution<double> distribution(0, 1);
+    static thread_local std::mt19937_64 generator = getPersonalRNG();
+    static thread_local std::uniform_real_distribution<double> distribution(0.0, 1.0);
     return distribution(generator);
 }
 
 inline double randomDouble(double min, double max)
 {
     return randomDouble() * (max - min) + min;
-}
-
-inline double randomDoubleThreadSafe(double min, double max)
-{
-    thread_local std::mt19937 generator(std::random_device{}());
-    std::uniform_real_distribution<double> distribution(min, max);
-    return distribution(generator);
 }
 
 inline double clamp(double x, double min, double max)

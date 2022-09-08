@@ -11,8 +11,8 @@ struct HitRecord
 {
 	Point3 hitPoint;
 	Vector3 normalVector;
-	Material* materialPtr;
-	double t = 0;
+	Material* materialPtr{};
+	double t{};
 	bool frontFacing{};
 
 	void setFaceNormal(const Ray& ray, const Vector3& outwardNormal)

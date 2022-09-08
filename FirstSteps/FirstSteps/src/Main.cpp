@@ -16,7 +16,7 @@
 
 #include "Timer.h"
 
-#define ASYNC
+//#define ASYNC
 
 struct Workspace;
 
@@ -40,7 +40,7 @@ Workspace getWorkspace()
 	const double aspectRatio = 16.0 / 9.0;
 	const int width = 600;
 	const int height = static_cast<int>(width / aspectRatio);
-	const unsigned int sampleCount = 100;
+	const unsigned int sampleCount = 200;
 	const unsigned int maxDepth = 50;
 
 	//CameraOptions camOptions = {
@@ -81,11 +81,12 @@ int main()
 
 	Workspace ws = getWorkspace();
 
-	std::ofstream stream("image-blur-new.ppm");
 
 #ifdef ASYNC
+	std::ofstream stream("testing\\image-blur-new-ht.ppm");
 	createImageHT(stream, ws);
 #else
+	std::ofstream stream("testing\\image-blur-new.ppm");
 	createImage(stream, ws);
 #endif // ASYNC
 

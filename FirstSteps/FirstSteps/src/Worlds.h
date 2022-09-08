@@ -22,7 +22,7 @@ inline HittableList createWorld()
 
 	objects.add(new Sphere(Point3(0.0, -100.5, -1.0), 100.0, materialGround));
 	//objects.add(new Sphere(Point3(0.0, 0.0, -1.0), 0.5, materialCenter));
-	objects.add(new MovingSphere(Point3(0.0, 0.0, -1.0), Point3(0.0, randomDouble(0, 0.5), -1.0), 0.5, 1.0, 0.2, materialCenter));
+	objects.add(new MovingSphere(Point3(0.0, 0.0, -1.0), Point3(0.0, 0.3, -1.0), 0.5, 1.0, 0.2, materialCenter));
 	objects.add(new Sphere(Point3(-1.0, 0.0, -1.0), 0.5, materialLeft));
 	//objects.add(new Sphere(Point3(-1.0, 0.0, -1.0), -0.45, materialLeft));
 	objects.add(new Sphere(Point3(1.0, 0.0, -1.0), 0.5, materialRight));
