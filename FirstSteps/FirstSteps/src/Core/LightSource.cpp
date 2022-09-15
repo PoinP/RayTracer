@@ -1,7 +1,7 @@
 #include "LightSource.h"
 
-#include "Utility.h"
-#include "Material.h"
+#include "../Utility/Utility.h"
+#include "../Materials/Material.h"
 
 LightSource::LightSource(const Point3& origin, double softness)
     : m_Origin(origin), m_Softness(softness)

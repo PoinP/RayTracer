@@ -1,6 +1,6 @@
 #include "Dielectric.h"
 
-#include "Utility.h"
+#include "../Utility/Utility.h"
 
 Dielectric::Dielectric(double refractiveIndex)
     : m_RefractiveIndex(refractiveIndex)

@@ -4,9 +4,9 @@
 
 #include <atomic>
 
-#include "Vector3.h"
-#include "Camera.h"
-#include "HittableList.h"
+#include "../Core/Ray.h"
+#include "../Core/Camera.h"
+#include "../Hittables/HittableList.h"
 
 static std::atomic<int> tasksDone = 0;
 

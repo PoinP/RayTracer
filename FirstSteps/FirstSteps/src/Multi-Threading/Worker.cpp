@@ -1,8 +1,8 @@
 #include "Worker.h"
 
-#include "Utility.h"
-#include "Color.h"
-#include "RayColor.h"
+#include "../Utility/Utility.h"
+#include "../Core/Color.h"
+#include "../Core/RayColor.h"
 
 #include <mutex>
 #include <stdexcept>

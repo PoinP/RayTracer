@@ -3,7 +3,7 @@
 #define METAL_H
 
 #include "Material.h"
-#include "Hittable.h"
+#include "../Hittables/Hittable.h"
 
 class Metal : public Material
 {

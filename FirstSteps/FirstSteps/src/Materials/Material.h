@@ -2,8 +2,8 @@
 
 #define MATERIAL_H
 
-#include "Hittable.h"
-#include "Ray.h"
+#include "../Hittables/Hittable.h"
+#include "../Core/Ray.h"
 
 class Material
 {

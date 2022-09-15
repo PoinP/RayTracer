@@ -2,8 +2,9 @@
 
 #define HITTABLE_H
 
-#include "Vector3.h"
-#include "Ray.h"
+#include "../Core/Vector3.h"
+#include "../Core/Ray.h"
+#include "../Core/AABB.h"
 
 class Material;
 
@@ -26,6 +27,7 @@ class Hittable
 {
 public:
 	virtual bool isHit(const Ray& ray, double minT, double maxT, HitRecord& record) const = 0;
+	virtual bool hasBoundingBox(double time0, double time1, AABB& boundingBox) const = 0;
 };
 
 #endif // !HITTABLE_H

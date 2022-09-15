@@ -3,7 +3,7 @@
 #define COLOR_H
 
 #include "Vector3.h"
-#include "Utility.h"
+#include "../Utility/Utility.h"
 
 inline void writeColor(std::ostream& stream, Color pixelColor, unsigned int sampleCount)
 {

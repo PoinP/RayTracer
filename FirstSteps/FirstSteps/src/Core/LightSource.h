@@ -3,7 +3,7 @@
 #define LIGHT_SOURCE_H
 
 #include "Vector3.h"
-#include "HittableList.h"
+#include "../Hittables/HittableList.h"
 
 class LightSource
 {

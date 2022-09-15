@@ -35,3 +35,13 @@ bool Sphere::isHit(const Ray& ray, double minT, double maxT, HitRecord& record) 
     
     return true;
 }
+
+bool Sphere::hasBoundingBox(double t0, double t1, AABB& boundingBox) const
+{
+    boundingBox = AABB(
+        m_Center - Vector3(m_Radius, m_Radius, m_Radius),
+        m_Center + Vector3(m_Radius, m_Radius, m_Radius)
+    );
+
+    return true;
+}

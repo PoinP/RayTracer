@@ -1,6 +1,6 @@
 #include "Metal.h"
 
-#include "Utility.h"
+#include "../Utility/Utility.h"
 
 Metal::Metal(const Color& albedo, double fuzz)
     : m_Albedo(albedo), m_Fuzz(fuzz < 1 ? fuzz : 1)

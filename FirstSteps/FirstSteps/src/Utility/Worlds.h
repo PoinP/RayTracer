@@ -2,8 +2,8 @@
 
 #define WORLDS_H
 
-#include "Sphere.h"
-#include "MovingSphere.h"
+#include "../Hittables/Hittables.h"
+#include "../Materials/Materials.h"
 
 inline HittableList createWorld()
 {
@@ -36,6 +36,7 @@ inline HittableList generateRandomWorld()
 	Material* groundMaterial = new Diffuse(Color(0.5, 0.5, 0.5));
 	world.add(new Sphere(Point3(0, -1000, 0), 1000, groundMaterial));
 
+	HittableList miniSpheres;
 	for (int i = -11; i < 11; ++i)
 	{
 		for (int j = -11; j < 11; ++j)
@@ -49,22 +50,24 @@ inline HittableList generateRandomWorld()
 				{
 					Color color = Color::random() * Color::random();
 					Material* material = new Diffuse(color);
-					world.add(new Sphere(center, 0.2, material));
+					miniSpheres.add(new Sphere(center, 0.2, material));
 				}
 				else if (randomNum < 0.8)
 				{
 					Color color = Color::random() * Color::random();
 					Material* material = new Metal(color, randomDouble());
-					world.add(new Sphere(center, 0.2, material));
+					miniSpheres.add(new Sphere(center, 0.2, material));
 				}
 				else
 				{
 					Material* material = new Dielectric(1 + randomDouble() * 0.6);
-					world.add(new Sphere(center, 0.2, material));
+					miniSpheres.add(new Sphere(center, 0.2, material));
 				}
 			}
 		}
 	}
+
+	world.add(new BVH(miniSpheres, 0, 0));
 
 	Material* dielectric = new Dielectric(1.5);
 	Material* diffuse = new Diffuse(Color(0.53, 0.81, 0.94));

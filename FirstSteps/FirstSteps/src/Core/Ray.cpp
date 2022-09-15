@@ -1,6 +1,6 @@
 #include "Ray.h"
 
-#include "Materials.h"
+#include "../Materials/Material.h"
 
 Ray::Ray()
 {

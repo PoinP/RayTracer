@@ -2,8 +2,8 @@
 
 #define MOVING_SPHERE_H
 
-#include "Vector3.h"
-#include "Hittable.h"
+#include "../Core/Vector3.h"
+#include "../Hittables/Hittable.h"
 
 class MovingSphere : public Hittable
 {
@@ -11,8 +11,7 @@ public:
 	MovingSphere(const Point3& center0, const Point3& center1, double radius, double time0, double time1, Material* materialPtr);
 
 	virtual bool isHit(const Ray& ray, double minT, double maxT, HitRecord& record) const override;
-
-	Point3 center(double time) const;
+	virtual bool hasBoundingBox(double time0, double time1, AABB& boundingBox) const override;
 
 private:
 	Point3 m_Center0;
@@ -21,6 +20,8 @@ private:
 	double m_Time0;
 	double m_Time1;
 	Material* m_MaterialPtr;
+
+	Point3 center(double time) const;
 };
 
 #endif // !MOVING_SPHERE_H

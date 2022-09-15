@@ -1,7 +1,8 @@
 #include "Vector3.h"
 
 #include <math.h>
-#include "Utility.h"
+
+#include "../Utility/Utility.h"
 
 Vector3::Vector3()
     : m_Coords { 0, 0, 0 }

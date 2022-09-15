@@ -37,6 +37,23 @@ bool MovingSphere::isHit(const Ray& ray, double minT, double maxT, HitRecord& re
     return true;
 }
 
+bool MovingSphere::hasBoundingBox(double time0, double time1, AABB& boundingBox) const
+{
+    AABB box0 = AABB(
+        center(time0) - Vector3(m_Radius, m_Radius, m_Radius),
+        center(time0) + Vector3(m_Radius, m_Radius, m_Radius)
+    );
+
+    AABB box1 = AABB(
+        center(time1) - Vector3(m_Radius, m_Radius, m_Radius),
+        center(time1) + Vector3(m_Radius, m_Radius, m_Radius)
+    );
+
+    boundingBox = AABB::surroundingBox(box0, box1);
+
+    return true;
+}
+
 Point3 MovingSphere::center(double time) const
 {
     return m_Center0 + ((time - m_Time0) / (m_Time1 - m_Time0)) * (m_Center1 - m_Center0);

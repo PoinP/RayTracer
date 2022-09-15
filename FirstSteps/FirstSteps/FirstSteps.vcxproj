@@ -42,13 +42,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -143,40 +143,46 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\MovingSphere.h" />
-    <ClInclude Include="src\RayColor.h" />
-    <ClInclude Include="src\Worlds.h" />
-    <ClInclude Include="src\LightSource.h" />
-    <ClInclude Include="src\Dielectric.h" />
-    <ClInclude Include="src\Materials.h" />
-    <ClInclude Include="src\Metal.h" />
-    <ClInclude Include="src\Diffuse.h" />
-    <ClInclude Include="src\Material.h" />
-    <ClInclude Include="src\Camera.h" />
-    <ClInclude Include="src\Color.h" />
-    <ClInclude Include="src\Utility.h" />
-    <ClInclude Include="src\Hittable.h" />
-    <ClInclude Include="src\HittableList.h" />
-    <ClInclude Include="src\Ray.h" />
-    <ClInclude Include="src\Sphere.h" />
-    <ClInclude Include="src\Vector3.h" />
-    <ClInclude Include="src\Worker.h" />
-    <ClInclude Include="src\Timer.h" />
+    <ClCompile Include="src\Core\AABB.cpp" />
+    <ClCompile Include="src\Core\Camera.cpp" />
+    <ClCompile Include="src\Core\LightSource.cpp" />
+    <ClCompile Include="src\Core\Ray.cpp" />
+    <ClCompile Include="src\Core\Vector3.cpp" />
+    <ClCompile Include="src\Hittables\BVH.cpp" />
+    <ClCompile Include="src\Hittables\HittableList.cpp" />
+    <ClCompile Include="src\Hittables\MovingSphere.cpp" />
+    <ClCompile Include="src\Hittables\Sphere.cpp" />
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Materials\Dielectric.cpp" />
+    <ClCompile Include="src\Materials\Diffuse.cpp" />
+    <ClCompile Include="src\Materials\Material.cpp" />
+    <ClCompile Include="src\Materials\Metal.cpp" />
+    <ClCompile Include="src\Multi-Threading\Worker.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\MovingSphere.cpp" />
-    <ClCompile Include="src\LightSource.cpp" />
-    <ClCompile Include="src\Dielectric.cpp" />
-    <ClCompile Include="src\Metal.cpp" />
-    <ClCompile Include="src\Diffuse.cpp" />
-    <ClCompile Include="src\Material.cpp" />
-    <ClCompile Include="src\Camera.cpp" />
-    <ClCompile Include="src\HittableList.cpp" />
-    <ClCompile Include="src\Main.cpp" />
-    <ClCompile Include="src\Ray.cpp" />
-    <ClCompile Include="src\Sphere.cpp" />
-    <ClCompile Include="src\Vector3.cpp" />
-    <ClCompile Include="src\Worker.cpp" />
+    <ClInclude Include="src\Core\AABB.h" />
+    <ClInclude Include="src\Core\Camera.h" />
+    <ClInclude Include="src\Core\Color.h" />
+    <ClInclude Include="src\Core\Core.h" />
+    <ClInclude Include="src\Core\LightSource.h" />
+    <ClInclude Include="src\Core\Ray.h" />
+    <ClInclude Include="src\Core\RayColor.h" />
+    <ClInclude Include="src\Core\Vector3.h" />
+    <ClInclude Include="src\Hittables\BVH.h" />
+    <ClInclude Include="src\Hittables\Hittables.h" />
+    <ClInclude Include="src\Hittables\Hittable.h" />
+    <ClInclude Include="src\Hittables\HittableList.h" />
+    <ClInclude Include="src\Hittables\MovingSphere.h" />
+    <ClInclude Include="src\Hittables\Sphere.h" />
+    <ClInclude Include="src\Materials\Dielectric.h" />
+    <ClInclude Include="src\Materials\Diffuse.h" />
+    <ClInclude Include="src\Materials\Material.h" />
+    <ClInclude Include="src\Materials\Materials.h" />
+    <ClInclude Include="src\Materials\Metal.h" />
+    <ClInclude Include="src\Multi-Threading\Worker.h" />
+    <ClInclude Include="src\Utility\Timer.h" />
+    <ClInclude Include="src\Utility\Utility.h" />
+    <ClInclude Include="src\Utility\Worlds.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

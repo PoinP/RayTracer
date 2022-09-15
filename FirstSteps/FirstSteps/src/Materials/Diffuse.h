@@ -3,7 +3,7 @@
 #define DIFFSUE_H
 
 #include "Material.h"
-#include "Utility.h"
+#include "../Utility/Utility.h"
 
 class Diffuse : public Material
 {

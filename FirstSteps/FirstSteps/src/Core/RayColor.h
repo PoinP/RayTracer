@@ -7,11 +7,12 @@
 
 #define RAY_COLOR_H
 
-#include "Color.h"
 #include "Ray.h"
-#include "HittableList.h"
-#include "Material.h"
+#include "Color.h"
 #include"LightSource.h"
+
+#include "../Hittables/HittableList.h"
+#include "../Materials/Material.h"
 
 inline Color rayColor(const Ray& ray, const HittableList& world, unsigned int depth)
 {

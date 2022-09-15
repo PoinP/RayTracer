@@ -4,19 +4,14 @@
 #include <vector>
 #include <string>
 
-#include "Vector3.h"
-#include "Ray.h"
-#include "Color.h"
-#include "Sphere.h"
-#include "Camera.h"
-#include "Materials.h"
-#include "Worker.h"
-#include "Worlds.h"
-#include "RayColor.h"
+#include "Core/Core.h"
+#include "Hittables/HittableList.h"
+#include "Utility/Timer.h"
+#include "Utility/Worlds.h"
+#include "Utility/Utility.h"
+#include "Multi-Threading/Worker.h"
 
-#include "Timer.h"
-
-//#define ASYNC
+#define ASYNC
 
 struct Workspace;
 
@@ -38,9 +33,9 @@ struct Workspace
 Workspace getWorkspace()
 {
 	const double aspectRatio = 16.0 / 9.0;
-	const int width = 600;
+	const int width = 900;
 	const int height = static_cast<int>(width / aspectRatio);
-	const unsigned int sampleCount = 200;
+	const unsigned int sampleCount = 300;
 	const unsigned int maxDepth = 50;
 
 	//CameraOptions camOptions = {
@@ -83,14 +78,17 @@ int main()
 
 
 #ifdef ASYNC
-	std::ofstream stream("testing\\image-blur-new-ht.ppm");
+	std::ofstream stream("testing\\image-ht.ppm");
 	createImageHT(stream, ws);
 #else
-	std::ofstream stream("testing\\image-blur-new.ppm");
+	std::ofstream stream("testing\\image-nht.ppm");
 	createImage(stream, ws);
 #endif // ASYNC
 
 	stream.close();
+
+	for (auto& object : ws.world)
+		delete[] object;
 };
 
 
@@ -133,7 +131,7 @@ void createImage(std::ofstream& output, const Workspace& ws)
 	for (size_t i = 0; i < ws.height; i++)
 		colors[i] = new Color[ws.width];
 
-	HittableList world = createWorld();
+	HittableList world = ws.world;
 
 	for (size_t i = 0; i < ws.height; ++i)
 	{
