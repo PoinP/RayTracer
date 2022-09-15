@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-#include "Utility.h"
+#include "../Utility/Utility.h"
 
 Camera::Camera(const Point3& lookFrom, const Point3& lookAt, const Vector3& vUp, double aspectRatio, double verticalFov, double aperature, double focusDistance, double time0, double time1)
 {
