@@ -33,8 +33,8 @@ struct Workspace
 Workspace getWorkspace()
 {
 	const double aspectRatio = 16.0 / 9.0;
-	const int width = 900;
-	const int height = static_cast<int>(width / aspectRatio);
+	const unsigned width = 900;
+	const unsigned height = static_cast<unsigned>(width / aspectRatio);
 	const unsigned int sampleCount = 300;
 	const unsigned int maxDepth = 50;
 
