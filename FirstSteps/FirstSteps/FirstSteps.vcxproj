@@ -29,26 +29,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -143,6 +143,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Textures\ImageTexture.cpp" />
+    <ClCompile Include="src\Textures\CheckerTexture.cpp" />
     <ClCompile Include="src\Core\AABB.cpp" />
     <ClCompile Include="src\Core\Camera.cpp" />
     <ClCompile Include="src\Core\LightSource.cpp" />
@@ -158,8 +160,11 @@
     <ClCompile Include="src\Materials\Material.cpp" />
     <ClCompile Include="src\Materials\Metal.cpp" />
     <ClCompile Include="src\Multi-Threading\Worker.cpp" />
+    <ClCompile Include="src\Textures\SolidColor.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Textures\ImageTexture.h" />
+    <ClInclude Include="src\Textures\CheckerTexture.h" />
     <ClInclude Include="src\Core\AABB.h" />
     <ClInclude Include="src\Core\Camera.h" />
     <ClInclude Include="src\Core\Color.h" />
@@ -180,6 +185,8 @@
     <ClInclude Include="src\Materials\Materials.h" />
     <ClInclude Include="src\Materials\Metal.h" />
     <ClInclude Include="src\Multi-Threading\Worker.h" />
+    <ClInclude Include="src\Textures\SolidColor.h" />
+    <ClInclude Include="src\Textures\Texture.h" />
     <ClInclude Include="src\Utility\Timer.h" />
     <ClInclude Include="src\Utility\Utility.h" />
     <ClInclude Include="src\Utility\Worlds.h" />

@@ -13,6 +13,8 @@ struct HitRecord
 	Point3 hitPoint;
 	Vector3 normalVector;
 	Material* materialPtr{};
+	double u{};
+	double v{};
 	double t{};
 	bool frontFacing{};
 

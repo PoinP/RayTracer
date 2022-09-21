@@ -14,10 +14,13 @@ public:
 
 	virtual bool isHit(const Ray& ray, double minT, double maxT, HitRecord& record) const override;
 	virtual bool hasBoundingBox(double time0, double time1, AABB& boundingBox) const override;
+
 private:
 	Point3 m_Center;
 	double m_Radius;
 	Material* m_MaterialPtr;
+
+	static void getSphereUV(const Point3& p, double& u, double& v);
 };
 
 #endif // !SPHERE_H

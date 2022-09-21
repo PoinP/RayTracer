@@ -1,7 +1,12 @@
 #include "Diffuse.h"
+#include "../Textures/SolidColor.h"
 
-Diffuse::Diffuse(const Color& albedo)
+Diffuse::Diffuse(const Texture* albedo)
     : m_Albedo(albedo)
+{}
+
+Diffuse::Diffuse(const Color& color)
+    : m_Albedo(new SolidColor(color))
 {}
 
 bool Diffuse::scatter(const Ray& ray, const HitRecord& record, Color& reduction, Ray& scatter) const
@@ -13,6 +18,6 @@ bool Diffuse::scatter(const Ray& ray, const HitRecord& record, Color& reduction,
 
     scatter = Ray(record.hitPoint, scatterDirection, ray.time());
     
-    reduction = m_Albedo;
+    reduction = m_Albedo->value(record.u, record.v, record.hitPoint);
     return true;
 }

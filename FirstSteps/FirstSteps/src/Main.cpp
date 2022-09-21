@@ -13,6 +13,8 @@
 
 #define ASYNC
 
+// TODO: FIX ALL OF THE MEMORY LEAKS hihi ^^
+
 struct Workspace;
 
 void createImage(std::ofstream& output, const Workspace& workSpace);
@@ -33,9 +35,9 @@ struct Workspace
 Workspace getWorkspace()
 {
 	const double aspectRatio = 16.0 / 9.0;
-	const unsigned width = 900;
+	const unsigned width = 1920;
 	const unsigned height = static_cast<unsigned>(width / aspectRatio);
-	const unsigned int sampleCount = 300;
+	const unsigned int sampleCount = 1000;
 	const unsigned int maxDepth = 50;
 
 	//CameraOptions camOptions = {
@@ -48,17 +50,27 @@ Workspace getWorkspace()
 	//	10
 	//};
 	
+	//CameraOptions camOptions = {
+	//	Point3(0.0, 0.0, -1.0),
+	//	Point3(0.0, 1.5, 5.0),
+	//	Point3(0.0, 1.0, 0.0),
+	//	aspectRatio,
+	//	20,
+	//	0,
+	//	(Point3(0.0, 0.0, -1.0) - Point3(0.0, 1.5, 5.0)).length()
+	//};
+
 	CameraOptions camOptions = {
-		Point3(0.0, 0.0, -1.0),
-		Point3(0.0, 1.5, 5.0),
-		Point3(0.0, 1.0, 0.0),
-		aspectRatio,
-		20,
-		0,
-		(Point3(0.0, 0.0, -1.0) - Point3(0.0, 1.5, 5.0)).length()
+	Point3(0.0, 0.0, -1.0),
+	Point3(0.0, 1.5, 10.0),
+	Point3(0.0, 1.0, 0.0),
+	aspectRatio,
+	20,
+	0,
+	(Point3(0.0, 0.0, -1.0) - Point3(0.0, 1.5, 5.0)).length()
 	};
 
-	HittableList world = createWorld();
+	HittableList world = createWorld3();
 
 	return Workspace{
 		width,
@@ -76,12 +88,11 @@ int main()
 
 	Workspace ws = getWorkspace();
 
-
 #ifdef ASYNC
-	std::ofstream stream("testing\\image-ht.ppm");
+	std::ofstream stream("testing\\stofi-test.ppm");
 	createImageHT(stream, ws);
 #else
-	std::ofstream stream("testing\\image-nht.ppm");
+	std::ofstream stream("testing\\image-nht-max.ppm");
 	createImage(stream, ws);
 #endif // ASYNC
 

@@ -4,15 +4,25 @@
 
 #include "../Hittables/Hittables.h"
 #include "../Materials/Materials.h"
+#include "../Textures/CheckerTexture.h"
+#include "../Textures/ImageTexture.h"
 
 inline HittableList createWorld()
 {
 	Material* sunMaterial = new Diffuse(Color(0.9, 0.7, 0.4));
 
-	Material* materialGround = new Diffuse(Color(0.8, 0.8, 0.0));
-	//Material* materialCenter = new Diffuse(Color(0.1, 0.2, 0.5));
-	Material* materialCenter = new Diffuse(Color(1.0, 0.2, 0.5));
-	Material* materialLeft = new Dielectric(1.2);
+	Texture* texture = new CheckerTexture();
+	//Material* materialGround = new Diffuse(texture);
+	//Material* materialGround = new Diffuse(Color(0.8, 0.8, 0.0));
+	Material* materialGround = new Diffuse(texture);
+	Material* materialCenter = new Diffuse(Color(0.1, 0.2, 0.5));
+	//Material* materialCenter = new Diffuse(Color(1.0, 0.2, 0.5));
+	//Material* materialLeft = new Dielectric(1.2);
+
+	Texture* texture2 = new ImageTexture("textures/earth.ppm");
+
+
+	Material* materialLeft = new Diffuse(texture2);
 	Material* materialRight = new Metal(Color(0.8, 0.6, 0.2), 0.0);
 	//Material* materialRight = new Metal(Color(0.8, 0.6, 0.2), 0.9);
 
@@ -20,12 +30,55 @@ inline HittableList createWorld()
 	//objects.add(new Sphere(Point3(0.0, 2, 2), 1.5, sunMaterial));
 	//objects.add(new Sphere(Point3(0.0, 2, -1), 0.5, sunMaterial));
 
-	objects.add(new Sphere(Point3(0.0, -100.5, -1.0), 100.0, materialGround));
+	//objects.add(new Sphere(Point3(0.0, -100.5, -1.0), 100.0, materialGround));
+	objects.add(new Sphere(Point3(0.0, -15.5, -1.0), 15.0, materialGround));
 	//objects.add(new Sphere(Point3(0.0, 0.0, -1.0), 0.5, materialCenter));
 	objects.add(new MovingSphere(Point3(0.0, 0.0, -1.0), Point3(0.0, 0.3, -1.0), 0.5, 1.0, 0.2, materialCenter));
 	objects.add(new Sphere(Point3(-1.0, 0.0, -1.0), 0.5, materialLeft));
 	//objects.add(new Sphere(Point3(-1.0, 0.0, -1.0), -0.45, materialLeft));
 	objects.add(new Sphere(Point3(1.0, 0.0, -1.0), 0.5, materialRight));
+
+	return objects;
+}
+
+inline HittableList createWorld2()
+{
+	Texture* texture = new CheckerTexture();
+	Material* materialGround = new Diffuse(texture);
+
+	HittableList objects;
+
+	objects.add(new Sphere(Point3(0.0, 0.0, 0.0), 1, materialGround));
+
+	return objects;
+}
+
+inline HittableList createWorld3()
+{
+	Material* earth = new Diffuse(new ImageTexture("textures/earth.ppm"));
+	Material* mars = new Diffuse(new ImageTexture("textures/mars.ppm"));
+	Material* moon = new Diffuse(new ImageTexture("textures/moon.ppm"));
+
+	HittableList objects;
+
+	objects.add(new Sphere(Point3(0.0, 0.0, 0.0), 1, earth));
+	objects.add(new Sphere(Point3(1.0, 1.2, -2.0), 0.7, mars));
+	objects.add(new Sphere(Point3(-0.8, -0.9, -1.0), 0.6, moon));
+
+	return objects;
+}
+
+inline HittableList createWorld4()
+{
+	Material* earth = new Diffuse(new ImageTexture("textures/stofi.ppm"));
+	Material* mars = new Diffuse(new ImageTexture("textures/mars.ppm"));
+	Material* moon = new Diffuse(new ImageTexture("textures/moon.ppm"));
+
+	HittableList objects;
+
+	objects.add(new Sphere(Point3(0.0, 0.0, 0.0), 1, earth));
+	objects.add(new Sphere(Point3(1.0, 1.3, -2.0), 0.7, mars));
+	objects.add(new Sphere(Point3(-0.8, -0.9, -1.0), 0.6, moon));
 
 	return objects;
 }

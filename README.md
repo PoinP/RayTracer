@@ -18,3 +18,7 @@ The picture below is the rendering from the Raytracing in a weekend book. It too
 ![Render](/FirstSteps/out/RTWeekend.png)
 
     > Side note: If you need to use random numbers in a number of threads `thread_safe` is great!
+
+Below is a sample of texture mapping on a sphere.
+
+![Texture-Mapping](/FirstSteps/out/Texture-Mapping.png)
