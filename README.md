@@ -22,3 +22,5 @@ The picture below is the rendering from the Raytracing in a weekend book. It too
 Below is a sample of texture mapping on a sphere.
 
 ![Texture-Mapping](/FirstSteps/out/Texture-Mapping.png)
+
+![Box-Render](/FirstSteps/out/RenderBox.png)

@@ -6,5 +6,6 @@
 #include "Dielectric.h"
 #include "Metal.h"
 #include "Diffuse.h"
+#include "DiffuseLight.h"
 
 #endif // !MATERIALS_H

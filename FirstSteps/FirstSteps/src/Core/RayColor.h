@@ -18,7 +18,8 @@ inline Color rayColor(const Ray& ray, const HittableList& world, unsigned int de
 {
 	HitRecord record;
 
-	if (depth <= 0) return Color(0, 0, 0);
+	if (depth <= 0) 
+		return Color(0, 0, 0);
 
 	const LightSource light = LightSource(Point3(0.0, 16, 0), 0.4);
 
@@ -41,6 +42,26 @@ inline Color rayColor(const Ray& ray, const HittableList& world, unsigned int de
 	Vector3 unitDirecion = unitVector(ray.direction());
 	double t = 0.5 * (unitDirecion.y() + 1.0);
 	return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.4, 0.7, 1.0);
+}
+
+inline Color rayColor(const Ray& ray, const Color& background, const HittableList& world, unsigned int depth)
+{
+	HitRecord record;
+
+	if (depth <= 0)
+		return Color(0, 0, 0);
+
+	if (!world.isHit(ray, 0.001, INF, record))
+		return background;
+
+	Ray scatteredRay;
+	Color reduction;
+	Color emittedColor = record.materialPtr->emit(record.u, record.v, record.hitPoint);
+
+	if (!record.materialPtr->scatter(ray, record, reduction, scatteredRay))
+		return emittedColor;
+
+	return emittedColor + reduction * rayColor(scatteredRay, background, world, depth - 1);
 }
 
 #endif // !RAY_COLOR_H

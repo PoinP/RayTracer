@@ -50,6 +50,17 @@ inline HittableList createWorld2()
 
 	objects.add(new Sphere(Point3(0.0, 0.0, 0.0), 1, materialGround));
 
+	Texture* texture2 = new CheckerTexture();
+	//Material* materialGround = new Diffuse(texture);
+	//Material* materialGround = new Diffuse(Color(0.8, 0.8, 0.0));
+	Material* materialGround2 = new Diffuse(texture2);
+
+	objects.add(new Sphere(Point3(0.0, -15.5, -1.0), 15.0, materialGround2));
+
+
+	Material* materialLight = new DiffuseLight(Color(1.0, 1.0, 1.0));
+	objects.add(new Sphere(Point3(2.0, 0.5, 0.0), 0.5, materialLight));
+
 	return objects;
 }
 
@@ -82,6 +93,59 @@ inline HittableList createWorld4()
 
 	return objects;
 }
+
+inline HittableList createWorld5()
+{
+	HittableList objects;
+
+	Material* diffuse1 = new Diffuse(Color(0.5, 0.5, 0));
+	objects.add(new Sphere(Point3(0, 0, -5), 0.5, diffuse1));
+
+	Material* diffuse = new Dielectric(1.1);
+	objects.add(new XYPlane(0, 1, 0, 1, 0, diffuse));
+
+	Material* texture = new Diffuse(new CheckerTexture());
+	objects.add(new XZPlane(0, 1, 0, 2, 0, texture));
+
+	Material* texture2 = new Diffuse(Color(1,0,0));
+	objects.add(new YZPlane(0, 1, 0, 2, 1, texture2));
+
+	objects.add(new XYPlane(0, 1, 0, 1, 2, texture));
+
+	objects.add(new XZPlane(0, 1, 0, 2, 1, texture));
+
+	objects.add(new YZPlane(0, 1, 0, 2, 0, texture2));
+
+	return objects;
+}
+
+inline HittableList cornellBox()
+{
+	HittableList objects;
+
+	auto red = new Diffuse(Color(0.65, 0.05, 0.05));
+	auto white = new Diffuse(Color(0.73, 0.73, 0.73));
+	auto green = new Diffuse(Color(0.12, 0.45, 0.15));
+	auto light = new DiffuseLight(Color(15, 15, 15));
+
+	auto blue = new Diffuse(Color(0, 0, 1));
+
+	objects.add(new YZPlane(0, 555, 0, 555, 555, green));
+	objects.add(new YZPlane(0, 555, 0, 555, 0, red));
+	objects.add(new XZPlane(113, 443, 127, 432, 554, light));
+	objects.add(new XZPlane(0, 555, 0, 555, 0, white));
+	objects.add(new XZPlane(0, 555, 0, 555, 555, white));
+	objects.add(new XYPlane(0, 555, 0, 555, 555, white));
+
+	objects.add(new XYPlane(0, 555, 0, 555, -801 , white));
+
+	Material* glass = new Dielectric(1.50);
+	objects.add(new Sphere(Point3(277.5, 240, 277.5), 150, glass));
+
+
+	return objects;
+}
+
 
 inline HittableList generateRandomWorld()
 {

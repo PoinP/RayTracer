@@ -34,10 +34,11 @@ struct Workspace
 
 Workspace getWorkspace()
 {
-	const double aspectRatio = 16.0 / 9.0;
-	const unsigned width = 1920;
+	//const double aspectRatio = 16.0 / 9.0;
+	const double aspectRatio = 1.0;
+	const unsigned width = 1600;
 	const unsigned height = static_cast<unsigned>(width / aspectRatio);
-	const unsigned int sampleCount = 1000;
+	const unsigned int sampleCount = 1600;
 	const unsigned int maxDepth = 50;
 
 	//CameraOptions camOptions = {
@@ -60,17 +61,27 @@ Workspace getWorkspace()
 	//	(Point3(0.0, 0.0, -1.0) - Point3(0.0, 1.5, 5.0)).length()
 	//};
 
+	//CameraOptions camOptions = {
+	//Point3(0.0, 0.0, -1.0),
+	//Point3(0.0, 1.5, 10.0),
+	//Point3(0.0, 1.0, 0.0),
+	//aspectRatio,
+	//20,
+	//0,
+	//(Point3(0.0, 0.0, -1.0) - Point3(0.0, 1.5, 5.0)).length()
+	//};
+
 	CameraOptions camOptions = {
-	Point3(0.0, 0.0, -1.0),
-	Point3(0.0, 1.5, 10.0),
+	Point3(278.0, 278.0, 0),
+	Point3(278, 278, -800),
 	Point3(0.0, 1.0, 0.0),
 	aspectRatio,
-	20,
+	40,
 	0,
 	(Point3(0.0, 0.0, -1.0) - Point3(0.0, 1.5, 5.0)).length()
 	};
 
-	HittableList world = createWorld3();
+	HittableList world = cornellBox();
 
 	return Workspace{
 		width,
@@ -89,10 +100,10 @@ int main()
 	Workspace ws = getWorkspace();
 
 #ifdef ASYNC
-	std::ofstream stream("testing\\stofi-test.ppm");
+	std::ofstream stream("testing\\light-test.ppm");
 	createImageHT(stream, ws);
 #else
-	std::ofstream stream("testing\\image-nht-max.ppm");
+	std::ofstream stream("testing\\image-aaaaaaa.ppm");
 	createImage(stream, ws);
 #endif // ASYNC
 

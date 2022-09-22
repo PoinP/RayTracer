@@ -143,6 +143,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Hittables\Plane.cpp" />
+    <ClCompile Include="src\Materials\DiffuseLight.cpp" />
     <ClCompile Include="src\Textures\ImageTexture.cpp" />
     <ClCompile Include="src\Textures\CheckerTexture.cpp" />
     <ClCompile Include="src\Core\AABB.cpp" />
@@ -163,6 +165,8 @@
     <ClCompile Include="src\Textures\SolidColor.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Hittables\Plane.h" />
+    <ClInclude Include="src\Materials\DiffuseLight.h" />
     <ClInclude Include="src\Textures\ImageTexture.h" />
     <ClInclude Include="src\Textures\CheckerTexture.h" />
     <ClInclude Include="src\Core\AABB.h" />
@@ -187,6 +191,7 @@
     <ClInclude Include="src\Multi-Threading\Worker.h" />
     <ClInclude Include="src\Textures\SolidColor.h" />
     <ClInclude Include="src\Textures\Texture.h" />
+    <ClInclude Include="src\Textures\Textures.h" />
     <ClInclude Include="src\Utility\Timer.h" />
     <ClInclude Include="src\Utility\Utility.h" />
     <ClInclude Include="src\Utility\Worlds.h" />

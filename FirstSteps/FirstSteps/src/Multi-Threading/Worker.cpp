@@ -71,7 +71,7 @@ void Worker::operator()(const Camera& cam, const HittableList& world, unsigned s
 
 					Ray ray = cam.getRay(u, v);
 
-					pixel += rayColor(ray, world, sampleCount);
+					pixel += rayColor(ray, Color(0,0,0), world, sampleCount);
 				}
 
 				colors[i][j] = getColor(pixel, sampleCount);

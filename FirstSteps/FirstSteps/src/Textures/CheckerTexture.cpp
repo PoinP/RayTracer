@@ -1,7 +1,7 @@
 #include "CheckerTexture.h"
 
 CheckerTexture::CheckerTexture()
-    : CheckerTexture(std::make_shared<SolidColor>(0.9, 0.0, 0.9), std::make_shared<SolidColor>(0.05, 0.05, 0.05))
+    : CheckerTexture(std::make_shared<SolidColor>(0.9, 0.0, 0.9), std::make_shared<SolidColor>(0.0, 0.0, 0.0))
 {
 }
 
