@@ -28,19 +28,20 @@ BVH::BVH(const HittableList& objectsSource, unsigned start, unsigned end, double
 
 	if (objectSpan == 1)
 	{
-		m_Left = m_Right = objects.getData()[start];
+		m_Left.reset(objects.getData()[start]);
+		m_Right = m_Left;
 	}
 	else if (objectSpan == 2)
 	{
 		if (comparator(objects.getData()[start], objects.getData()[start + 1]))
 		{
-			m_Left = objects.getData()[start];
-			m_Right = objects.getData()[start + 1];
+			m_Left.reset(objects.getData()[start]);
+			m_Right.reset(objects.getData()[start + 1]);
 		}
 		else
 		{
-			m_Left = objects.getData()[start + 1];
-			m_Right = objects.getData()[start];
+			m_Left.reset(objects.getData()[start + 1]);
+			m_Right.reset(objects.getData()[start]);
 		}
 	}
 	else
@@ -49,8 +50,8 @@ BVH::BVH(const HittableList& objectsSource, unsigned start, unsigned end, double
 
 		unsigned mid = start + objectSpan / 2;
 
-		m_Left = new BVH(objects, start, mid, time0, time1);
-		m_Right = new BVH(objects, mid, end, time0, time1);
+		m_Left.reset(new BVH(objects, start, mid, time0, time1));
+		m_Right.reset(new BVH(objects, mid, end, time0, time1));
 	}
 
 	AABB boxLeft, boxRight;
@@ -59,12 +60,6 @@ BVH::BVH(const HittableList& objectsSource, unsigned start, unsigned end, double
 	m_Right->hasBoundingBox(0, 0, boxRight);
 
 	m_Box = AABB::surroundingBox(boxLeft, boxRight);
-}
-
-BVH::~BVH()
-{
-	delete m_Left;
-	delete m_Right;
 }
 
 bool BVH::isHit(const Ray& ray, double minT, double maxT, HitRecord& record) const

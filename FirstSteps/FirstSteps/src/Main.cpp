@@ -99,7 +99,7 @@ int main()
 	stream.close();
 
 	for (auto& object : ws.world)
-		delete[] object;
+		delete object;
 };
 
 

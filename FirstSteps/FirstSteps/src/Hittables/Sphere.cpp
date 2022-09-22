@@ -3,7 +3,12 @@
 
 #include <cmath>
 
-Sphere::Sphere(const Point3& center, double radius, Material* material)
+Sphere::Sphere(const Point3& center, double radius, const Material* material)
+    : m_Center(center), m_Radius(radius), m_MaterialPtr(material)
+{
+}
+
+Sphere::Sphere(const Point3& center, double radius, const std::shared_ptr<const Material>& material)
     : m_Center(center), m_Radius(radius), m_MaterialPtr(material)
 {
 }

@@ -1,6 +1,11 @@
 #include "MovingSphere.h"
 
-MovingSphere::MovingSphere(const Point3& center0, const Point3& center1, double radius, double time0, double time1, Material* materialPtr)
+MovingSphere::MovingSphere(const Point3& center0, const Point3& center1, double radius, double time0, double time1, const Material* materialPtr)
+    : m_Center0(center0), m_Center1(center1), m_Radius(radius), m_Time0(time0), m_Time1(time1), m_MaterialPtr(materialPtr)
+{
+}
+
+MovingSphere::MovingSphere(const Point3& center0, const Point3& center1, double radius, double time0, double time1, const std::shared_ptr<const Material>& materialPtr)
     : m_Center0(center0), m_Center1(center1), m_Radius(radius), m_Time0(time0), m_Time1(time1), m_MaterialPtr(materialPtr)
 {
 }

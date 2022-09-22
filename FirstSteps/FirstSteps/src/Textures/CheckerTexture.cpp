@@ -1,7 +1,7 @@
 #include "CheckerTexture.h"
 
 CheckerTexture::CheckerTexture()
-    : CheckerTexture(new SolidColor(0.2, 0.3, 0.1), new SolidColor(0.9, 0.9, 0.9))
+    : CheckerTexture(std::make_shared<SolidColor>(0.9, 0.0, 0.9), std::make_shared<SolidColor>(0.05, 0.05, 0.05))
 {
 }
 
@@ -10,8 +10,19 @@ CheckerTexture::CheckerTexture(const Texture* even, const Texture* odd)
 {
 }
 
-CheckerTexture::CheckerTexture(const SolidColor& firstColor, const SolidColor& secondColor)
-    : m_Even(&firstColor), m_Odd(&secondColor)
+CheckerTexture::CheckerTexture(const std::shared_ptr<Texture>& even, const std::shared_ptr<Texture>& odd)
+    : m_Even(even), m_Odd(odd)
+{
+}
+
+CheckerTexture::CheckerTexture(const SolidColor* firstColor, const SolidColor* secondColor)
+    : m_Even(firstColor), m_Odd(secondColor)
+{
+}
+
+CheckerTexture::CheckerTexture(const Color& firstColor, const Color& secondColor)
+    : CheckerTexture(std::make_shared<SolidColor>(firstColor.x(), firstColor.y(), firstColor.z()), 
+        std::make_shared<SolidColor>(firstColor.x(), firstColor.y(), firstColor.z()))
 {
 }
 

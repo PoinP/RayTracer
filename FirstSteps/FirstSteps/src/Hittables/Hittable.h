@@ -6,13 +6,15 @@
 #include "../Core/Ray.h"
 #include "../Core/AABB.h"
 
+#include <memory>
+
 class Material;
 
 struct HitRecord 
 {
 	Point3 hitPoint;
 	Vector3 normalVector;
-	Material* materialPtr{};
+	std::shared_ptr<const Material> materialPtr{};
 	double u{};
 	double v{};
 	double t{};
