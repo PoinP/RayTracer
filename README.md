@@ -25,4 +25,4 @@ Below is a sample of texture mapping on a sphere.
 
 ![Box-Render](/FirstSteps/out/RenderBox.png)
 
-![Boxies](/FirstSteops/out/Boxies.png)
+![Boxies](/FirstSteps/out/Boxies.png)
