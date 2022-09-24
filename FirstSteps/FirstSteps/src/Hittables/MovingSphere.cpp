@@ -1,11 +1,6 @@
 #include "MovingSphere.h"
 
-MovingSphere::MovingSphere(const Point3& center0, const Point3& center1, double radius, double time0, double time1, const Material* materialPtr)
-    : m_Center0(center0), m_Center1(center1), m_Radius(radius), m_Time0(time0), m_Time1(time1), m_MaterialPtr(materialPtr)
-{
-}
-
-MovingSphere::MovingSphere(const Point3& center0, const Point3& center1, double radius, double time0, double time1, const std::shared_ptr<const Material>& materialPtr)
+MovingSphere::MovingSphere(const Point3& center0, const Point3& center1, double radius, double time0, double time1, std::shared_ptr<Material> materialPtr)
     : m_Center0(center0), m_Center1(center1), m_Radius(radius), m_Time0(time0), m_Time1(time1), m_MaterialPtr(materialPtr)
 {
 }
@@ -57,6 +52,16 @@ bool MovingSphere::hasBoundingBox(double time0, double time1, AABB& boundingBox)
     boundingBox = AABB::surroundingBox(box0, box1);
 
     return true;
+}
+
+Point3 MovingSphere::getCenter() const
+{
+    return m_Center1 - m_Center0;
+}
+
+Point3 MovingSphere::getOrigin() const
+{
+    return getCenter();
 }
 
 Point3 MovingSphere::center(double time) const

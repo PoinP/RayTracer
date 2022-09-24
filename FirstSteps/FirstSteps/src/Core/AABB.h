@@ -5,7 +5,7 @@
 #include "Vector3.h"
 #include "Ray.h"
 
-// Axis-Aligned Bounding Boxes
+// Axis-Aligned Bounding Box
 
 class AABB
 {

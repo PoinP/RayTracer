@@ -28,8 +28,8 @@ CheckerTexture::CheckerTexture(const Color& firstColor, const Color& secondColor
 
 Color CheckerTexture::value(double u, double v, const Point3& p) const
 {
-    const int width = 16;
-    const int height = 9;
+    const int width = 256;
+    const int height = 256;
 
     double u2 = floor(u * width);
     double v2 = floor(v * height);

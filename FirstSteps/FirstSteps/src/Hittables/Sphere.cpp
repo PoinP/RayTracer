@@ -3,12 +3,7 @@
 
 #include <cmath>
 
-Sphere::Sphere(const Point3& center, double radius, const Material* material)
-    : m_Center(center), m_Radius(radius), m_MaterialPtr(material)
-{
-}
-
-Sphere::Sphere(const Point3& center, double radius, const std::shared_ptr<const Material>& material)
+Sphere::Sphere(const Point3& center, double radius, std::shared_ptr<Material> material)
     : m_Center(center), m_Radius(radius), m_MaterialPtr(material)
 {
 }
@@ -53,6 +48,16 @@ bool Sphere::hasBoundingBox(double t0, double t1, AABB& boundingBox) const
     );
 
     return true;
+}
+
+Point3 Sphere::getCenter() const
+{
+    return m_Center;
+}
+
+Point3 Sphere::getOrigin() const
+{
+    return getCenter();
 }
 
 void Sphere::getSphereUV(const Point3& p, double& u, double& v)

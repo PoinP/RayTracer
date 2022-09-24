@@ -24,3 +24,5 @@ Below is a sample of texture mapping on a sphere.
 ![Texture-Mapping](/FirstSteps/out/Texture-Mapping.png)
 
 ![Box-Render](/FirstSteps/out/RenderBox.png)
+
+![Boxies](/FirstSteops/out/Boxies.png)

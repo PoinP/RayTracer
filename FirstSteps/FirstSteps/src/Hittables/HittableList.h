@@ -10,12 +10,12 @@ class HittableIterator
 public:
 
 	using difference_type = std::ptrdiff_t;
-	using value_type = Hittable*;
-	using pointer = Hittable**;
-	using reference = Hittable*&;
+	using value_type = std::shared_ptr<Hittable>;
+	using pointer = std::shared_ptr<Hittable>*;
+	using reference = std::shared_ptr<Hittable>&;
 	using iterator_category = std::random_access_iterator_tag;
 
-	HittableIterator(Hittable** ptr);
+	HittableIterator(pointer ptr);
 
 	HittableIterator& operator++();
 	HittableIterator operator++(int);
@@ -67,7 +67,7 @@ class HittableList : public Hittable
 {
 public:
 	HittableList();
-	HittableList(Hittable* obj);
+	HittableList(std::shared_ptr<Hittable> obj);
 	HittableList(const HittableList& other);
 	~HittableList();
 
@@ -75,22 +75,24 @@ public:
 
 	virtual bool isHit(const Ray& ray, double minT, double maxT, HitRecord& record) const override;
 	virtual bool hasBoundingBox(double time0, double time1, AABB& boundingBox) const override;
+	virtual Point3 getCenter() const override;
+	virtual Point3 getOrigin() const override;
 
 	HittableIterator begin() const noexcept;
 	HittableIterator end() const noexcept;
 
-	Hittable** getData() noexcept;
-	Hittable* const * getData() const noexcept;
+	std::shared_ptr<Hittable>* getData() noexcept;
+	std::shared_ptr<Hittable> const* getData() const noexcept;
 
 	int getSize() const noexcept;
 
-	void add(Hittable* obj);
+	void add(std::shared_ptr<Hittable> obj);
 	void clear();
 
 private:
 	int m_Size;
 	int m_Capacity;
-	Hittable** m_Objects;
+	std::shared_ptr<Hittable>* m_Objects;
 
 	void resize(unsigned int newSize);
 	unsigned int calculateNewCapacity();

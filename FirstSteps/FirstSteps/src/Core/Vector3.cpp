@@ -152,6 +152,16 @@ Vector3 operator/(double scalar, const Vector3& vector)
     return vector / scalar;
 }
 
+bool operator==(const Vector3& vector1, const Vector3& vector2)
+{
+    return vector1.x() == vector2.x() && vector1.y() == vector2.y() && vector1.z() == vector2.z();
+}
+
+bool operator!=(const Vector3& vector1, const Vector3& vector2)
+{
+    return !(vector1 == vector2);
+}
+
 double dotProduct(const Vector3& vector1, const Vector3& vector2)
 {
     return vector1.x() * vector2.x() + vector1.y() * vector2.y() + vector1.z() * vector2.z();

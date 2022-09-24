@@ -51,6 +51,9 @@ Vector3 operator*(double scalar, const Vector3& vector);
 Vector3 operator/(const Vector3& vector, double scalar);
 Vector3 operator/(double scalar, const Vector3& vector);
 
+bool operator== (const Vector3& vector1, const Vector3& vector2);
+bool operator!= (const Vector3& vector1, const Vector3& vector2);
+
 double dotProduct(const Vector3& vector1, const Vector3& vector2);
 Vector3 crossProduct(const Vector3& vector1, const Vector3& vector2);
 Vector3 unitVector(const Vector3& vector);

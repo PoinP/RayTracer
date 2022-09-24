@@ -75,6 +75,15 @@
     <ClCompile Include="src\Hittables\Plane.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Hittables\Box.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hittables\Translate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hittables\Rotate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Multi-Threading\Worker.h">
@@ -165,6 +174,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Hittables\Plane.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hittables\Box.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hittables\Translate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hittables\Rotate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

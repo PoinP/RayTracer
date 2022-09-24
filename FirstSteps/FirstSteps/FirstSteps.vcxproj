@@ -143,6 +143,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Hittables\Rotate.cpp" />
+    <ClCompile Include="src\Hittables\Box.cpp" />
     <ClCompile Include="src\Hittables\Plane.cpp" />
     <ClCompile Include="src\Materials\DiffuseLight.cpp" />
     <ClCompile Include="src\Textures\ImageTexture.cpp" />
@@ -163,8 +165,11 @@
     <ClCompile Include="src\Materials\Metal.cpp" />
     <ClCompile Include="src\Multi-Threading\Worker.cpp" />
     <ClCompile Include="src\Textures\SolidColor.cpp" />
+    <ClCompile Include="src\Hittables\Translate.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Hittables\Rotate.h" />
+    <ClInclude Include="src\Hittables\Box.h" />
     <ClInclude Include="src\Hittables\Plane.h" />
     <ClInclude Include="src\Materials\DiffuseLight.h" />
     <ClInclude Include="src\Textures\ImageTexture.h" />
@@ -195,6 +200,7 @@
     <ClInclude Include="src\Utility\Timer.h" />
     <ClInclude Include="src\Utility\Utility.h" />
     <ClInclude Include="src\Utility\Worlds.h" />
+    <ClInclude Include="src\Hittables\Translate.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

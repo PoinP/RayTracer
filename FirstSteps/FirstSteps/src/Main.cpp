@@ -36,9 +36,9 @@ Workspace getWorkspace()
 {
 	//const double aspectRatio = 16.0 / 9.0;
 	const double aspectRatio = 1.0;
-	const unsigned width = 1600;
+	const unsigned width = 600;
 	const unsigned height = static_cast<unsigned>(width / aspectRatio);
-	const unsigned int sampleCount = 1600;
+	const unsigned int sampleCount = 100;
 	const unsigned int maxDepth = 50;
 
 	//CameraOptions camOptions = {
@@ -81,6 +81,7 @@ Workspace getWorkspace()
 	(Point3(0.0, 0.0, -1.0) - Point3(0.0, 1.5, 5.0)).length()
 	};
 
+	//HittableList world = createWorld();
 	HittableList world = cornellBox();
 
 	return Workspace{
@@ -100,17 +101,14 @@ int main()
 	Workspace ws = getWorkspace();
 
 #ifdef ASYNC
-	std::ofstream stream("testing\\light-test.ppm");
+	std::ofstream stream("testing\\rotations.ppm");
 	createImageHT(stream, ws);
 #else
-	std::ofstream stream("testing\\image-aaaaaaa.ppm");
+	std::ofstream stream("testing\\rotations.ppm");
 	createImage(stream, ws);
 #endif // ASYNC
 
 	stream.close();
-
-	for (auto& object : ws.world)
-		delete object;
 };
 
 

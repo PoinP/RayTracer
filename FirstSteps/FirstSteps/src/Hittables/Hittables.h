@@ -8,6 +8,7 @@
 #include "MovingSphere.h"
 #include "Sphere.h"
 #include "Plane.h"
+#include "Box.h"
 
 #endif // !HITTABLES_H
 

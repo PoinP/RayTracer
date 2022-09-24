@@ -1,6 +1,6 @@
 #include "HittableList.h"
 
-HittableIterator::HittableIterator(Hittable** ptr)
+HittableIterator::HittableIterator(pointer ptr)
     : m_Ptr(ptr)
 {
 }
@@ -73,27 +73,27 @@ bool HittableIterator::operator>=(const HittableIterator& other) const
     return !(*this < other);
 }
 
-Hittable** HittableIterator::operator->()
+std::shared_ptr<Hittable>* HittableIterator::operator->()
 {
     return m_Ptr;
 }
 
-Hittable*& HittableIterator::operator*()
+std::shared_ptr<Hittable>& HittableIterator::operator*()
 {
     return *m_Ptr;
 }
 
-Hittable*& HittableIterator::operator*() const
+std::shared_ptr<Hittable>& HittableIterator::operator*() const
 {
     return *m_Ptr;
 }
 
-Hittable*& HittableIterator::operator[](difference_type index)
+std::shared_ptr<Hittable>& HittableIterator::operator[](difference_type index)
 {
     return *(m_Ptr + index);
 }
 
-Hittable** HittableIterator::getPtr() const noexcept
+std::shared_ptr<Hittable>* HittableIterator::getPtr() const noexcept
 {
     return m_Ptr;
 }
@@ -102,14 +102,14 @@ HittableList::HittableList()
     : m_Size(0), m_Capacity(0), m_Objects(nullptr)
 {}
 
-HittableList::HittableList(Hittable* obj)
-    : m_Size(1), m_Capacity(1), m_Objects(new Hittable*[m_Capacity])
+HittableList::HittableList(std::shared_ptr<Hittable> obj)
+    : m_Size(1), m_Capacity(1), m_Objects(new std::shared_ptr<Hittable>[m_Capacity])
 {
     m_Objects[0] = obj;
 }
 
 HittableList::HittableList(const HittableList& other)
-    : m_Size(other.m_Size), m_Capacity(other.m_Capacity), m_Objects(new Hittable*[m_Capacity])
+    : m_Size(other.m_Size), m_Capacity(other.m_Capacity), m_Objects(new std::shared_ptr<Hittable>[m_Capacity])
 {
     for (int i = 0; i < other.m_Size && i < m_Capacity; i++)
     {
@@ -130,7 +130,7 @@ HittableList& HittableList::operator=(const HittableList& other)
 
         m_Size = other.m_Size;
         m_Capacity = other.m_Capacity;
-        m_Objects = new Hittable*[m_Capacity];
+        m_Objects = new std::shared_ptr<Hittable>[m_Capacity];
 
         for (int i = 0; i < m_Size && i < m_Capacity; i++)
         {
@@ -180,6 +180,16 @@ bool HittableList::hasBoundingBox(double time0, double time1, AABB& boundingBox)
     return true;
 }
 
+Point3 HittableList::getCenter() const
+{
+    return Point3(0, 0, 0);
+}
+
+Point3 HittableList::getOrigin() const
+{
+    return Point3(0, 0, 0);
+}
+
 HittableIterator HittableList::begin() const noexcept
 {
     return HittableIterator(m_Objects);
@@ -190,12 +200,12 @@ HittableIterator HittableList::end() const noexcept
     return HittableIterator(m_Objects + m_Size);
 }
 
-Hittable** HittableList::getData() noexcept
+std::shared_ptr<Hittable>* HittableList::getData() noexcept
 {
     return m_Objects;
 }
 
-Hittable* const * HittableList::getData() const noexcept
+std::shared_ptr<Hittable> const * HittableList::getData() const noexcept
 {
     return m_Objects;
 }
@@ -205,7 +215,7 @@ int HittableList::getSize() const noexcept
     return m_Size;
 }
 
-void HittableList::add(Hittable* obj)
+void HittableList::add(std::shared_ptr<Hittable> obj)
 {
     if (m_Size >= m_Capacity)
         resize(calculateNewCapacity());
@@ -223,7 +233,7 @@ void HittableList::clear()
 
 void HittableList::resize(unsigned int newSize)
 {
-    Hittable** newList = new Hittable*[newSize];
+    std::shared_ptr<Hittable>* newList = new std::shared_ptr<Hittable>[newSize];
 
     for (int i = 0; i < m_Size && i < (int)newSize; i++)
     {

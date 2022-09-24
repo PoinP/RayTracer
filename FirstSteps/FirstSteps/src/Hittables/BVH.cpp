@@ -28,20 +28,19 @@ BVH::BVH(const HittableList& objectsSource, unsigned start, unsigned end, double
 
 	if (objectSpan == 1)
 	{
-		m_Left.reset(objects.getData()[start]);
-		m_Right = m_Left;
+		m_Left = m_Right = objects.getData()[start];
 	}
 	else if (objectSpan == 2)
 	{
 		if (comparator(objects.getData()[start], objects.getData()[start + 1]))
 		{
-			m_Left.reset(objects.getData()[start]);
-			m_Right.reset(objects.getData()[start + 1]);
+			m_Left = objects.getData()[start];
+			m_Right = objects.getData()[start + 1];
 		}
 		else
 		{
-			m_Left.reset(objects.getData()[start + 1]);
-			m_Right.reset(objects.getData()[start]);
+			m_Left = objects.getData()[start + 1];
+			m_Right = objects.getData()[start];
 		}
 	}
 	else
@@ -79,7 +78,17 @@ bool BVH::hasBoundingBox(double time0, double time1, AABB& boundingBox) const
 	return true;
 }
 
-bool BVH::boxCompare(const Hittable* obj0, const Hittable* obj1, int axis)
+Point3 BVH::getCenter() const
+{
+	return (m_Box.min() + m_Box.max()) / 2;
+}
+
+Point3 BVH::getOrigin() const
+{
+	return m_Box.min();
+}
+
+bool BVH::boxCompare(const std::shared_ptr<Hittable> obj0, const std::shared_ptr<Hittable> obj1, int axis)
 {
 	AABB box0, box1;
 
@@ -89,6 +98,6 @@ bool BVH::boxCompare(const Hittable* obj0, const Hittable* obj1, int axis)
 	return box0.min()[axis] < box1.min()[axis];
 }
 
-bool BVH::boxCompareX(const Hittable* obj0, const Hittable* obj1) { return boxCompare(obj0, obj1, 0); }
-bool BVH::boxCompareY(const Hittable* obj0, const Hittable* obj1) { return boxCompare(obj0, obj1, 1); }
-bool BVH::boxCompareZ(const Hittable* obj0, const Hittable* obj1) { return boxCompare(obj0, obj1, 2); }
+bool BVH::boxCompareX(const std::shared_ptr<Hittable> obj0, const std::shared_ptr<Hittable> obj1) { return boxCompare(obj0, obj1, 0); }
+bool BVH::boxCompareY(const std::shared_ptr<Hittable> obj0, const std::shared_ptr<Hittable> obj1) { return boxCompare(obj0, obj1, 1); }
+bool BVH::boxCompareZ(const std::shared_ptr<Hittable> obj0, const std::shared_ptr<Hittable> obj1) { return boxCompare(obj0, obj1, 2); }

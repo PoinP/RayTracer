@@ -30,8 +30,12 @@ struct HitRecord
 class Hittable
 {
 public:
+	virtual ~Hittable() {};
+
 	virtual bool isHit(const Ray& ray, double minT, double maxT, HitRecord& record) const = 0;
 	virtual bool hasBoundingBox(double time0, double time1, AABB& boundingBox) const = 0;
+	virtual Point3 getCenter() const = 0;
+	virtual Point3 getOrigin() const = 0;
 };
 
 #endif // !HITTABLE_H
