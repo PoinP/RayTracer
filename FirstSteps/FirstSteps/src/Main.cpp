@@ -36,9 +36,9 @@ Workspace getWorkspace()
 {
 	//const double aspectRatio = 16.0 / 9.0;
 	const double aspectRatio = 1.0;
-	const unsigned width = 600;
+	const unsigned width = 1900;
 	const unsigned height = static_cast<unsigned>(width / aspectRatio);
-	const unsigned int sampleCount = 100;
+	const unsigned int sampleCount = 1600;
 	const unsigned int maxDepth = 50;
 
 	//CameraOptions camOptions = {
@@ -71,9 +71,19 @@ Workspace getWorkspace()
 	//(Point3(0.0, 0.0, -1.0) - Point3(0.0, 1.5, 5.0)).length()
 	//};
 
+	//CameraOptions camOptions = {
+	//Point3(278.0, 278.0, 0),
+	//Point3(278, 278, -500),
+	//Point3(0.0, 1.0, 0.0),
+	//aspectRatio,
+	//40,
+	//0,
+	//(Point3(0.0, 0.0, -1.0) - Point3(0.0, 1.5, 5.0)).length()
+	//};
+
 	CameraOptions camOptions = {
-	Point3(278.0, 278.0, 0),
-	Point3(278, 278, -800),
+	Point3(0.0, 0.0, 0.0),
+	Point3(0, 70, -195),
 	Point3(0.0, 1.0, 0.0),
 	aspectRatio,
 	40,
@@ -81,8 +91,19 @@ Workspace getWorkspace()
 	(Point3(0.0, 0.0, -1.0) - Point3(0.0, 1.5, 5.0)).length()
 	};
 
+	//CameraOptions camOptions = {
+	//Point3(-450.0, 200.0, 1000.0),
+	//Point3(-550, 300, 600),
+	//Point3(0.0, 1.0, 0.0),
+	//aspectRatio,
+	//25,
+	//0,
+	//(Point3(0.0, 0.0, -1.0) - Point3(0.0, 1.5, 5.0)).length()
+	//};
+
 	//HittableList world = createWorld();
-	HittableList world = cornellBox();
+	//HittableList world = cornellBox();
+	HittableList world = skyboxTest();
 
 	return Workspace{
 		width,
@@ -101,7 +122,7 @@ int main()
 	Workspace ws = getWorkspace();
 
 #ifdef ASYNC
-	std::ofstream stream("testing\\rotations.ppm");
+	std::ofstream stream("testing\\skybox_test.ppm");
 	createImageHT(stream, ws);
 #else
 	std::ofstream stream("testing\\rotations.ppm");

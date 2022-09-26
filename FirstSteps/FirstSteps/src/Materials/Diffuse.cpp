@@ -1,7 +1,7 @@
 #include "Diffuse.h"
 #include "../Textures/SolidColor.h"
 
-Diffuse::Diffuse(const Texture* albedo)
+Diffuse::Diffuse(std::shared_ptr<Texture> albedo)
     : m_Albedo(albedo)
 {}
 

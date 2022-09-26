@@ -24,14 +24,21 @@ bool XYPlane::isHit(const Ray& ray, double minT, double maxT, HitRecord& record)
     record.hitPoint = ray.at(record.t);
     record.materialPtr = m_MaterialPtr;
     Vector3 normalVector = Vector3(0, 0, 1);
-    //record.setFaceNormal(ray, Vector3(0, 0, 0));
     record.setFaceNormal(ray, normalVector);
 
-    record.u = (x - m_X0) / (m_X1 - m_X0);
-    record.v = (y - m_Y0) / (m_Y1 - m_Y0);
+    if (dotProduct(ray.direction(), normalVector) > 0) // Checks if it hits front wall
+    {
+        record.u = (-x - m_X0) / (m_X1 - m_X0);
+        record.v = (-y - m_Y0) / (m_Y1 - m_Y0);
+    }
+    else // else hits bottom wall
+    {
+        record.u = (x - m_X0) / (m_X1 - m_X0);
+        record.v = (-y - m_Y0) / (m_Y1 - m_Y0);
+    }
 
-    //record.u = fmod(x, 1);
-    //record.v = fmod(y, 1);
+    //record.u = (x - m_X0) / (m_X1 - m_X0);
+    //record.v = (y - m_Y0) / (m_Y1 - m_Y0);
 
     return true;
 }
@@ -76,14 +83,21 @@ bool XZPlane::isHit(const Ray& ray, double minT, double maxT, HitRecord& record)
     record.hitPoint = ray.at(record.t);
     record.materialPtr = m_MaterialPtr;
     Vector3 normalVector = Vector3(0, 1, 0);
-    //record.setFaceNormal(ray, Vector3(0, 0, 0));
     record.setFaceNormal(ray, normalVector);
 
-    record.u = (x - m_X0) / (m_X1 - m_X0);
-    record.v = (z - m_Z0) / (m_Z1 - m_Z0);
+    if (dotProduct(ray.direction(), normalVector) > 0) // Checks if it hits top wall
+    {
+        record.u = (-x - m_X0) / (m_X1 - m_X0);
+        record.v = (z - m_Z0) / (m_Z1 - m_Z0);
+    }
+    else // else hits bottom wall
+    {
+        record.u = (-x - m_X0) / (m_X1 - m_X0);
+        record.v = (-z - m_Z0) / (m_Z1 - m_Z0);
+    }
 
-    //record.u = fmod(x, 1);
-    //record.v = fmod(z, 1);
+    /*record.u = (x - m_X0) / (m_X1 - m_X0);
+    record.v = (z - m_Z0) / (m_Z1 - m_Z0);*/
 
     return true;
 }
@@ -128,14 +142,21 @@ bool YZPlane::isHit(const Ray& ray, double minT, double maxT, HitRecord& record)
     record.hitPoint = ray.at(record.t);
     record.materialPtr = m_MaterialPtr;
     Vector3 normalVector = Vector3(1, 0, 0);
-    //record.setFaceNormal(ray, Vector3(0, 0, 0));
     record.setFaceNormal(ray, normalVector);
 
-    record.u = (y - m_Y0) / (m_Y1 - m_Y0);
-    record.v = (z - m_Z0) / (m_Z1 - m_Z0);
+    if (dotProduct(ray.direction(), normalVector) > 0) // Checks if it hits right wall
+    {
+        record.v = (-y - m_Y0) / (m_Y1 - m_Y0);
+        record.u = (z - m_Z0) / (m_Z1 - m_Z0);
+    }
+    else // else hits bottom wall
+    {
+        record.v = (-y - m_Y0) / (m_Y1 - m_Y0);
+        record.u = (-z - m_Z0) / (m_Z1 - m_Z0);
+    }
 
-    //record.u = fmod(y, 1);
-    //record.v = fmod(z, 1);
+    /*record.u = (y - m_Y0) / (m_Y1 - m_Y0);
+    record.v = (z - m_Z0) / (m_Z1 - m_Z0);*/
 
     return true;
 }

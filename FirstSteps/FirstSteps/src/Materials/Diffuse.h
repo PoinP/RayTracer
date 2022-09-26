@@ -11,12 +11,12 @@
 class Diffuse : public Material
 {
 public:
-	Diffuse(const Texture* albedo);
+	Diffuse(std::shared_ptr<Texture> albedo);
 	Diffuse(const Color& color);
 	virtual bool scatter(const Ray& ray, const HitRecord& record, Color& reduction, Ray& scatter) const override;
 
 private:
-	const std::shared_ptr<const Texture> m_Albedo;
+	const std::shared_ptr<Texture> m_Albedo;
 };
 
 #endif // !DIFFUSE_H

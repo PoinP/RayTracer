@@ -54,8 +54,8 @@ ImageTexture::~ImageTexture()
 
 Color ImageTexture::value(double u, double v, const Point3& p) const
 {
-    int width = floor(u * m_Width);
-    int height = floor(v * m_Height);
+    int width = floor(fabs(u) * (m_Width - 1));
+    int height = floor(fabs(v) * (m_Height - 1));
 
     return m_Data[height][width];
 }
