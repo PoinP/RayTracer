@@ -11,6 +11,7 @@ class XYPlane : public Hittable
 {
 public:
 	XYPlane(double x0, double x1, double y0, double y1, double k, std::shared_ptr<Material> material);
+
 	virtual bool isHit(const Ray& ray, double minT, double maxT, HitRecord& record) const override;
 	virtual bool hasBoundingBox(double time0, double time1, AABB& boundingBox) const override;
 	virtual Point3 getCenter() const override;
@@ -28,6 +29,7 @@ class XZPlane : public Hittable
 {
 public:
 	XZPlane(double x0, double x1, double z0, double z1, double k, std::shared_ptr<Material> material);
+
 	virtual bool isHit(const Ray& ray, double minT, double maxT, HitRecord& record) const override;
 	virtual bool hasBoundingBox(double time0, double time1, AABB& boundingBox) const override;
 	virtual Point3 getCenter() const override;
@@ -45,6 +47,7 @@ class YZPlane : public Hittable
 {
 public:
 	YZPlane(double y0, double y1, double z0, double z1, double k, std::shared_ptr<Material> material);
+
 	virtual bool isHit(const Ray& ray, double minT, double maxT, HitRecord& record) const override;
 	virtual bool hasBoundingBox(double time0, double time1, AABB& boundingBox) const override;
 	virtual Point3 getCenter() const override;

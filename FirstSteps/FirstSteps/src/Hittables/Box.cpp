@@ -39,8 +39,6 @@ Box::Box(const Point3& origin, const Point3& dimensions, const std::vector<std::
 	h = dimensions.y();
 	l = dimensions.z();
 
-	auto test = std::make_shared<Diffuse>(std::make_shared<ImageTexture>("textures/earth.ppm"));
-
 	m_Planes.add(std::make_shared<YZPlane>(y, y + h, z, z + l, x, cubeMap[3]));
 	m_Planes.add(std::make_shared<YZPlane>(y, y + h, z, z + l, x + w, cubeMap[0]));
 	m_Planes.add(std::make_shared<XZPlane>(x, x + w, z, z + l, y, cubeMap[1]));

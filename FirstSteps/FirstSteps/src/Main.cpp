@@ -7,7 +7,7 @@
 #include "Core/Core.h"
 #include "Hittables/HittableList.h"
 #include "Utility/Timer.h"
-#include "Utility/Worlds.h"
+#include "Utility/Scenes.h"
 #include "Utility/Utility.h"
 #include "Multi-Threading/Worker.h"
 
@@ -28,101 +28,45 @@ struct Workspace
 	unsigned height;
 	unsigned sampleCount;
 	unsigned maxDepth;
-	CameraOptions camOptions;
-	HittableList world;
+	Scene scene;
 };
 
 Workspace getWorkspace()
 {
-	//const double aspectRatio = 16.0 / 9.0;
 	const double aspectRatio = 1.0;
-	const unsigned width = 1900;
+	const unsigned width = 600;
 	const unsigned height = static_cast<unsigned>(width / aspectRatio);
-	const unsigned int sampleCount = 1600;
+	const unsigned int sampleCount = 100;
 	const unsigned int maxDepth = 50;
-
-	//CameraOptions camOptions = {
-	//	Point3(0.0, 0.0, 0.0),
-	//	Point3(13.0, 2.0, 3.0),
-	//	Point3(0.0, 1.0, 0.0),
-	//	aspectRatio,
-	//	20,
-	//	0.1,
-	//	10
-	//};
-	
-	//CameraOptions camOptions = {
-	//	Point3(0.0, 0.0, -1.0),
-	//	Point3(0.0, 1.5, 5.0),
-	//	Point3(0.0, 1.0, 0.0),
-	//	aspectRatio,
-	//	20,
-	//	0,
-	//	(Point3(0.0, 0.0, -1.0) - Point3(0.0, 1.5, 5.0)).length()
-	//};
-
-	//CameraOptions camOptions = {
-	//Point3(0.0, 0.0, -1.0),
-	//Point3(0.0, 1.5, 10.0),
-	//Point3(0.0, 1.0, 0.0),
-	//aspectRatio,
-	//20,
-	//0,
-	//(Point3(0.0, 0.0, -1.0) - Point3(0.0, 1.5, 5.0)).length()
-	//};
-
-	//CameraOptions camOptions = {
-	//Point3(278.0, 278.0, 0),
-	//Point3(278, 278, -500),
-	//Point3(0.0, 1.0, 0.0),
-	//aspectRatio,
-	//40,
-	//0,
-	//(Point3(0.0, 0.0, -1.0) - Point3(0.0, 1.5, 5.0)).length()
-	//};
-
-	CameraOptions camOptions = {
-	Point3(0.0, 0.0, 0.0),
-	Point3(0, 70, -195),
-	Point3(0.0, 1.0, 0.0),
-	aspectRatio,
-	40,
-	0,
-	(Point3(0.0, 0.0, -1.0) - Point3(0.0, 1.5, 5.0)).length()
-	};
-
-	//CameraOptions camOptions = {
-	//Point3(-450.0, 200.0, 1000.0),
-	//Point3(-550, 300, 600),
-	//Point3(0.0, 1.0, 0.0),
-	//aspectRatio,
-	//25,
-	//0,
-	//(Point3(0.0, 0.0, -1.0) - Point3(0.0, 1.5, 5.0)).length()
-	//};
-
-	//HittableList world = createWorld();
-	//HittableList world = cornellBox();
-	HittableList world = skyboxTest();
 
 	return Workspace{
 		width,
 		height,
 		sampleCount,
 		maxDepth,
-		camOptions,
-		world
+		threeSpheresScene(aspectRatio)
 	};
 }
 
 int main()
 {
 	Timer t;
+	Workspace ws;
 
-	Workspace ws = getWorkspace();
+	try
+	{
+		ws = getWorkspace();
+	}
+	catch (const std::exception& ex)
+	{
+		std::cout << "An error has occured: " << ex.what() << "\n";
+		std::cout << "Exitting...\n";
+
+		return -1;
+	}
 
 #ifdef ASYNC
-	std::ofstream stream("testing\\skybox_test.ppm");
+	std::ofstream stream("testing\\mycornelbox.ppm");
 	createImageHT(stream, ws);
 #else
 	std::ofstream stream("testing\\rotations.ppm");
@@ -135,7 +79,7 @@ int main()
 
 void createImageHT(std::ofstream& output, const Workspace& ws)
 {
-	Camera cam(ws.camOptions);
+	Camera cam(ws.scene.cameraOptions);
 
 	Color** colors = new Color * [ws.height];
 	for (int i = 0; i < (int)ws.height; i++)
@@ -147,7 +91,7 @@ void createImageHT(std::ofstream& output, const Workspace& ws)
 	Worker::setupWorkforce(ws.width, ws.height, 32);
 
 	for (std::thread& thread : threads)
-		thread = std::thread(Worker{}, cam, ws.world, ws.sampleCount, ws.maxDepth, colors);
+		thread = std::thread(Worker{}, cam, ws.scene.world, ws.sampleCount, ws.maxDepth, colors);
 
 	for (std::thread& thread : threads)
 	{
@@ -166,13 +110,13 @@ void createImageHT(std::ofstream& output, const Workspace& ws)
 
 void createImage(std::ofstream& output, const Workspace& ws)
 {
-	Camera cam(ws.camOptions);
+	Camera cam(ws.scene.cameraOptions);
 
 	Color** colors = new Color * [ws.height];
 	for (size_t i = 0; i < ws.height; i++)
 		colors[i] = new Color[ws.width];
 
-	HittableList world = ws.world;
+	HittableList world = ws.scene.world;
 
 	for (size_t i = 0; i < ws.height; ++i)
 	{

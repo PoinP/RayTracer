@@ -7,6 +7,9 @@
 #include <mutex>
 #include <stdexcept>
 
+//Does not work with sky boxes!!
+//#define LEGACY_RENDER
+
 int Worker::m_LastId = 0;
 unsigned Worker::m_BlockSize = 0;
 unsigned Worker::m_Width = 0;
@@ -71,8 +74,12 @@ void Worker::operator()(const Camera& cam, const HittableList& world, unsigned s
 
 					Ray ray = cam.getRay(u, v);
 
-					pixel += rayColor(ray, Color(0,0,0), world, maxDepth);
-					//pixel += rayColor(ray, world, maxDepth);
+#ifdef LEGACY_RENDER
+					pixel += rayColor(ray, world, maxDepth);
+#else
+					pixel += rayColor(ray, Color(0, 0, 0), world, maxDepth);
+
+#endif // LEGACY_RENDER
 				}
 
 				colors[i][j] = getColor(pixel, sampleCount);

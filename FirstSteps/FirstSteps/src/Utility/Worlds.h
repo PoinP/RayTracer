@@ -7,191 +7,113 @@
 #include "../Textures/CheckerTexture.h"
 #include "../Textures/ImageTexture.h"
 
-//inline HittableList createWorld()
-//{
-//	Material* sunMaterial = new Diffuse(Color(0.9, 0.7, 0.4));
-//
-//	Texture* texture = new CheckerTexture();
-//	//Material* materialGround = new Diffuse(texture);
-//	//Material* materialGround = new Diffuse(Color(0.8, 0.8, 0.0));
-//	Material* materialGround = new Diffuse(texture);
-//	Material* materialCenter = new Diffuse(Color(0.1, 0.2, 0.5));
-//	//Material* materialCenter = new Diffuse(Color(1.0, 0.2, 0.5));
-//	//Material* materialLeft = new Dielectric(1.2);
-//
-//	Texture* texture2 = new ImageTexture("textures/earth.ppm");
-//
-//
-//	Material* materialLeft = new Diffuse(texture2);
-//	Material* materialRight = new Metal(Color(0.8, 0.6, 0.2), 0.0);
-//	//Material* materialRight = new Metal(Color(0.8, 0.6, 0.2), 0.9);
-//
-//	HittableList objects;
-//	//objects.add(new Sphere(Point3(0.0, 2, 2), 1.5, sunMaterial));
-//	//objects.add(new Sphere(Point3(0.0, 2, -1), 0.5, sunMaterial));
-//
-//	//objects.add(new Sphere(Point3(0.0, -100.5, -1.0), 100.0, materialGround));
-//	//objects.add(new Sphere(Point3(0.0, -15.5, -1.0), 15.0, materialGround));
-//
-//	//objects.add(new XZPlane(-100, 100, -100, 100, -0.5, materialGround));
-//
-//	//objects.add(new Sphere(Point3(0.0, 0.0, -1.0), 0.5, materialCenter));
-//	objects.add(std::make_shared<MovingSphere>(Point3(0.0, 0.0, -1.0), Point3(0.0, 0.3, -1.0), 0.5, 1.0, 0.2, materialCenter).get());
-//	objects.add(std::make_shared<Sphere>(Point3(-1.0, 0.0, -1.0), 0.5, materialLeft).get());
-//	//objects.add(new Sphere(Point3(-1.0, 0.0, -1.0), -0.45, materialLeft));
-//	objects.add(std::make_shared<Sphere>(Point3(1.0, 0.0, -1.0), 0.5, materialRight).get());
-//
-//	return objects;
-//}
-//
-//inline HittableList createWorld2()
-//{
-//	Texture* texture = new CheckerTexture();
-//	Material* materialGround = new Diffuse(texture);
-//
-//	HittableList objects;
-//
-//	objects.add(std::make_shared<Sphere>(Point3(0.0, 0.0, 0.0), 1, materialGround).get());
-//
-//	Texture* texture2 = new CheckerTexture();
-//	//Material* materialGround = new Diffuse(texture);
-//	//Material* materialGround = new Diffuse(Color(0.8, 0.8, 0.0));
-//	Material* materialGround2 = new Diffuse(texture2);
-//
-//	objects.add(std::make_shared<Sphere>(Point3(0.0, -15.5, -1.0), 15.0, materialGround2).get());
-//
-//
-//	Material* materialLight = new DiffuseLight(Color(1.0, 1.0, 1.0));
-//	objects.add(std::make_shared<Sphere>(Point3(2.0, 0.5, 0.0), 0.5, materialLight).get());
-//
-//	return objects;
-//}
-//
-//inline HittableList createWorld3()
-//{
-//	std::shared_ptr<Material> earth = std::make_shared<Diffuse>(std::make_shared<ImageTexture>("textures/earth.ppm"));
-//	std::shared_ptr<Material> mars = std::make_shared<Diffuse>(std::make_shared<ImageTexture>("textures/mars.ppm"));
-//	std::shared_ptr<Material> moon = std::make_shared<Diffuse>(std::make_shared<ImageTexture>("textures/moon.ppm"));
-//
-//	HittableList objects;
-//
-//	objects.add(std::make_shared<Sphere>(Point3(0.0, 0.0, 0.0), 1, earth).get());
-//	objects.add(std::make_shared<Sphere>(Point3(1.0, 1.2, -2.0), 0.7, mars).get());
-//	objects.add(std::make_shared<Sphere>(Point3(-0.8, -0.9, -1.0), 0.6, moon).get());
-//
-//	return objects;
-//}
-//
-//inline HittableList createWorld4()
-//{
-//	Material* earth = new Diffuse(new ImageTexture("textures/stofi.ppm"));
-//	Material* mars = new Diffuse(new ImageTexture("textures/mars.ppm"));
-//	Material* moon = new Diffuse(new ImageTexture("textures/moon.ppm"));
-//
-//	HittableList objects;
-//
-//	objects.add(std::make_shared<Sphere>(Point3(0.0, 0.0, 0.0), 1, earth).get());
-//	objects.add(std::make_shared<Sphere>(Point3(1.0, 1.3, -2.0), 0.7, mars).get());
-//	objects.add(std::make_shared<Sphere>(Point3(-0.8, -0.9, -1.0), 0.6, moon).get());
-//
-//	return objects;
-//}
-//
-//inline HittableList createWorld5()
-//{
-//	HittableList objects;
-//
-//	std::shared_ptr<Material> diffuse1 = std::make_shared<Diffuse>(Color(0.5, 0.5, 0));
-//	objects.add(std::make_shared<Sphere>(Point3(0, 0, -5), 0.5, diffuse1).get());
-//
-//	auto diffuse = std::make_shared<Dielectric>(1.1);
-//	objects.add(new XYPlane(0, 1, 0, 1, 0, diffuse));
-//
-//	auto texture = std::make_shared<Diffuse>(new CheckerTexture());
-//	objects.add(new XZPlane(0, 1, 0, 2, 0, texture));
-//
-//	auto texture2 = std::make_shared<Diffuse>(Color(1,0,0));
-//	objects.add(new YZPlane(0, 1, 0, 2, 1, texture2));
-//
-//	objects.add(new XYPlane(0, 1, 0, 1, 2, texture));
-//
-//	objects.add(new XZPlane(0, 1, 0, 2, 1, texture));
-//
-//	objects.add(new YZPlane(0, 1, 0, 2, 0, texture2));
-//
-//	return objects;
-//}
+inline HittableList threeSpheres()
+{
+	// Materials
+	auto materialGround = std::make_shared<Diffuse>(std::make_shared<CheckerTexture>());
+	auto materialLeft = std::make_shared<Diffuse>(std::make_shared<ImageTexture>("textures/earth.ppm"));
+	auto materialCenter = std::make_shared<Diffuse>(Color(0.1, 0.2, 0.5));
+	auto materialRight = std::make_shared<Metal>(Color(0.8, 0.6, 0.2), 0.0);
 
-//#include "../Hittables/Translate.h"
-//#include "../Hittables/Rotate.h"
-//
-//inline HittableList cornellBox()
-//{
-//	HittableList objects;
-//
-//	auto red = std::make_shared<Diffuse>(Color(0.65, 0.05, 0.05));
-//	auto white = std::make_shared<Diffuse>(Color(0.73, 0.73, 0.73));
-//	auto green = std::make_shared<Diffuse>(Color(0.12, 0.45, 0.15));
-//	//auto light = new DiffuseLight(Color(3, 3, 0));
-//	auto light = std::make_shared<DiffuseLight>(Color(14, 14, 14));
-//
-//	auto blue = new Diffuse(Color(0, 0, 1));
-//
-//	objects.add(std::make_shared<YZPlane>(0, 555, 0, 555, 555, green));
-//	objects.add(std::make_shared<YZPlane>(0, 555, 0, 555, 0, red));
-//	objects.add(std::make_shared<XZPlane>(213, 343, 227, 332, 554, light));
-//	//objects.add(new XZPlane(113, 443, 127, 432, 554, light));
-//	objects.add(std::make_shared<XZPlane>(0, 555, 0, 555, 0, white));
-//	objects.add(std::make_shared<XZPlane>(0, 555, 0, 555, 555, white));
-//	objects.add(std::make_shared<XYPlane>(0, 555, 0, 555, 555, white));
-//
-//	objects.add(std::make_shared<XYPlane>(0, 555, 0, 555, -801 , white));
-//
-//	std::shared_ptr<Material> glass = std::make_shared<Dielectric>(1.60);
-//	//Material* glass = new Diffuse(Color(0.6,0.6,1));
-//
-//	//Hittable* smallBox = new Box(Point3(-82.5, -82.5, -82.5), Point3(165.0, 165.0, 165.0), white);
-//	//smallBox = new RotateX(smallBox, 180);
-//	//smallBox = new Translate(smallBox, -Vector3(-82.5, -82.5, -82.5));
-//	//smallBox = new Translate(smallBox, Vector3(130.0, 0.0, 65.0));
-//
-//	////smallBox = new Translate(smallBox, Vector3(130.0, 0.0, 65.0));
-//
-//	//objects.add(smallBox);
-//	//objects.add(new Box(Point3(265.0, 0.0, 295.0), Point3(165.0, 330.0, 165.0), white));
-//	//objects.add(new Box(Point3(205.0, 0.0, 89.5), Point3(10, 500.0, 10), red));
-//	////objects.add(new Sphere(Point3(277.5, 540, 277.5), 30, glass));
-//
-//	Vector3 diff;
-//
-//	//Hittable* smallBox = new Box(Point3(110.0, 0.0, 65.0), Point3(165.0, 165.0, 165.0), white);
-//	std::shared_ptr<Hittable> smallBox = std::make_shared<Box>(Point3(110.0, 0.0, 65.0), Point3(165.0, 165.0, 165.0), white);
-//
-//	rotateY(smallBox, 36);
-//	rotateX(smallBox, 16);
-//	rotateZ(smallBox, -29);
-//
-//	objects.add(smallBox);
-//
-//	std::shared_ptr<Hittable> bigBox = std::make_shared<Box>(Point3(285.0, 0.0, 295.0), Point3(165.0, 330.0, 165.0), white);
-//
-//
-//	objects.add(bigBox);
-//
-//	objects.add(std::make_shared<Sphere>(Point3(182.0, 245.0, 125.5), 80, glass));
-//	//objects.add(new Box(Point3(205.0, 0.0, 89.5), Point3(10, 500.0, 10), red));
-//
-//
-//
-//	return objects;
-//}
+	auto negX = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Sky/negx.ppm"), 0.7);
+	auto negY = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Sky/negy.ppm"), 0.7);
+	auto negZ = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Sky/negz.ppm"), 0.7);
+	auto posX = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Sky/posx.ppm"), 0.7);
+	auto posY = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Sky/posy.ppm"), 0.7);
+	auto posZ = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Sky/posz.ppm"), 0.7);
 
-#include "../Hittables/Rotate.h"
+	std::vector<std::shared_ptr<Material>> cubemap = { negX, negY, negZ, posX, posY, posZ };
 
-inline HittableList skyboxTest()
+	HittableList world;
+
+	// Objects in world
+	world.add(std::make_shared<Box>(Point3(-2000, -2000, -2000), Vector3(4000, 4000, 4000), cubemap));
+	world.add(std::make_shared<XZPlane>(-100, 100, -100, 100, -0.5, materialGround));
+	world.add(std::make_shared<MovingSphere>(Point3(0.0, 0.0, -1.0), Point3(0.0, 0.3, -1.0), 0.5, 1.0, 0.2, materialCenter));
+	world.add(std::make_shared<Sphere>(Point3(-1.0, 0.0, -1.0), 0.5, materialLeft));
+	world.add(std::make_shared<Sphere>(Point3(1.0, 0.0, -1.0), 0.5, materialRight));
+
+	return world;
+}
+
+inline HittableList threePlanets()
+{
+	// Materials
+
+	// Cubemap (Skybox)
+	auto negX = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Space/negx.ppm"), 0.15);
+	auto negY = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Space/negy.ppm"), 0.15);
+	auto negZ = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Space/negz.ppm"), 0.15);
+	auto posX = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Space/posx.ppm"), 0.15);
+	auto posY = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Space/posy.ppm"), 0.15);
+	auto posZ = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Space/posz.ppm"), 0.15);
+
+	std::vector<std::shared_ptr<Material>> cubemap = { negX, negY, negZ, posX, posY, posZ };
+
+	auto earth = std::make_shared<Diffuse>(std::make_shared<ImageTexture>("textures/earth.ppm"));
+	auto mars = std::make_shared<Diffuse>(std::make_shared<ImageTexture>("textures/mars.ppm"));
+	auto moon = std::make_shared<Diffuse>(std::make_shared<ImageTexture>("textures/moon.ppm"));
+	auto light = std::make_shared<DiffuseLight>(Color(16, 16, 16));
+
+	HittableList objects;
+
+	// Objects
+	std::shared_ptr<Hittable> lightSource = std::make_shared<XZPlane>(0, 2, 0, 2, 5, light);
+	rotateX(lightSource, -35);
+
+	objects.add(lightSource);
+	objects.add(std::make_shared<Box>(Point3(-50, -50, -50), Vector3(100, 100, 100), cubemap));
+	objects.add(std::make_shared<Sphere>(Point3(0.0, 0.0, 0.0), 1, earth));
+	objects.add(std::make_shared<Sphere>(Point3(1.0, 1.2, -2.0), 0.7, mars));
+	objects.add(std::make_shared<Sphere>(Point3(-0.8, -0.9, -1.0), 0.6, moon));
+
+	return objects;
+}
+
+inline HittableList cornellBox()
 {
 	HittableList objects;
 
+	// Materials
+	auto red = std::make_shared<Diffuse>(Color(0.65, 0.05, 0.05));
+	auto white = std::make_shared<Diffuse>(Color(0.73, 0.73, 0.73));
+	auto green = std::make_shared<Diffuse>(Color(0.12, 0.45, 0.15));
+	auto light = std::make_shared<DiffuseLight>(Color(14, 14, 14));
+
+	auto glass = std::make_shared<Dielectric>(1.60);
+
+	// Cornell Box Walls(without the front one)
+	objects.add(std::make_shared<YZPlane>(0, 555, 0, 555, 555, green));
+	objects.add(std::make_shared<YZPlane>(0, 555, 0, 555, 0, red));
+	objects.add(std::make_shared<XZPlane>(0, 555, 0, 555, 0, white));
+	objects.add(std::make_shared<XZPlane>(0, 555, 0, 555, 555, white));
+	objects.add(std::make_shared<XYPlane>(0, 555, 0, 555, 555, white));
+
+	// Cornell Box Light Source
+	objects.add(std::make_shared<XZPlane>(213, 343, 227, 332, 554, light));
+
+	// Objects inside the Cornell Box
+	std::shared_ptr<Hittable> smallBox = std::make_shared<Box>(Point3(110.0, 0.0, 65.0), Point3(165.0, 165.0, 165.0), white);
+	std::shared_ptr<Hittable> bigBox = std::make_shared<Box>(Point3(285.0, 0.0, 295.0), Point3(165.0, 330.0, 165.0), white);
+	std::shared_ptr<Hittable> glassSphere = std::make_shared<Sphere>(Point3(182.0, 245.0, 125.5), 80, glass);
+
+	rotateY(smallBox, -18);
+	rotateY(bigBox, 15);
+
+	objects.add(smallBox);
+	objects.add(bigBox);
+	objects.add(glassSphere);
+
+	return objects;
+}
+
+#include "../Hittables/Rotate.h"
+
+inline HittableList sphereInJapan()
+{
+	HittableList objects;
+
+	// Cubemap load (TODO: try using "boost::iostreams::mapped_file" for faster image loading)
 	std::shared_ptr<Material> negX = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Yokahoma/negx.ppm"), 0.4);
 	std::shared_ptr<Material> negY = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Yokahoma/negy.ppm"), 0.4);
 	std::shared_ptr<Material> negZ = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Yokahoma/negz.ppm"), 0.4);
@@ -199,107 +121,134 @@ inline HittableList skyboxTest()
 	std::shared_ptr<Material> posY = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Yokahoma/posy.ppm"), 0.4);
 	std::shared_ptr<Material> posZ = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Yokahoma/posz.ppm"), 0.4);
 
+	// Create the skybox
 	std::vector<std::shared_ptr<Material>> cubemap = { negX, negY, negZ, posX, posY, posZ };
+	std::shared_ptr<Hittable> skybox = std::make_shared<Box>(Point3(-300, -300, -300), Point3(600, 600, 600), cubemap);
 
-	std::shared_ptr<Hittable> skybox = std::make_shared<Box>(Point3(-200, -200, -200), Point3(400, 400, 400), cubemap);
-	auto light = std::make_shared<DiffuseLight>(Color(16, 16, 16));
-
+	// Create the mirror ball
 	std::shared_ptr<Material> mirror = std::make_shared<Metal>(Color(1, 1, 1), 0.01);
 	std::shared_ptr<Hittable> ball = std::make_shared<Sphere>(Point3(0.0, 0.0, 0.0), 50, mirror);
 
-	objects.add(ball);
 	objects.add(skybox);
+	objects.add(ball);
 
 	return objects;
 }
 
-inline HittableList space()
-{
-	HittableList objects;
+// ------------- TODO: ADD SPACE TEXTURES ------------------
 
-	std::shared_ptr<Material> negX = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Space/negx.ppm"), 0.15);
-	std::shared_ptr<Material> negY = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Space/negy.ppm"), 0.15);
-	std::shared_ptr<Material> negZ = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Space/negz.ppm"), 0.15);
-	std::shared_ptr<Material> posX = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Space/posx.ppm"), 0.15);
-	std::shared_ptr<Material> posY = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Space/posy.ppm"), 0.15);
-	std::shared_ptr<Material> posZ = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Space/posz.ppm"), 0.15);
+
+	//CameraOptions camOptions = {
+	//Point3(-450.0, 200.0, 1000.0),
+	//Point3(-550, 300, 600),
+	//Point3(0.0, 1.0, 0.0),
+	//aspectRatio,
+	//25,
+	//0,
+	//(Point3(0.0, 0.0, -1.0) - Point3(0.0, 1.5, 5.0)).length()
+	//};
+
+
+//inline HittableList space()
+//{
+//	HittableList objects;
+//
+//	auto negX = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Space/negx.ppm"), 0.15);
+//	auto negY = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Space/negy.ppm"), 0.15);
+//	auto negZ = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Space/negz.ppm"), 0.15);
+//	auto posX = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Space/posx.ppm"), 0.15);
+//	auto posY = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Space/posy.ppm"), 0.15);
+//	auto posZ = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Space/posz.ppm"), 0.15);
+//
+//	std::vector<std::shared_ptr<Material>> cubemap = { negX, negY, negZ, posX, posY, posZ };
+//
+//	std::shared_ptr<Hittable> skybox = std::make_shared<Box>(Point3(-1500, -1000, -3000), Point3(3000, 2000, 6000), cubemap);
+//
+//	auto sunLight = std::make_shared<DiffuseLight>(Color(20, 15, 12));
+//	std::shared_ptr<Material> sunMat = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/sun.ppm"), 1.5);
+//	std::shared_ptr<Material> earthMat = std::make_shared<Diffuse>(std::make_shared<ImageTexture>("textures/earth_alt.ppm"));
+//	std::shared_ptr<Material> moonMat = std::make_shared<Diffuse>(std::make_shared<ImageTexture>("textures/moon.ppm"));
+//	std::shared_ptr<Material> venusMat = std::make_shared<Diffuse>(std::make_shared<ImageTexture>("textures/venus.ppm"));
+//
+//
+//	std::shared_ptr<Hittable> sun = std::make_shared<Sphere>(Point3(0.0, 0.0, 0.0), 400, sunMat);
+//	std::shared_ptr<Hittable> lightOfSun = std::make_shared<Sphere>(Point3(0.0, 0.0, 0.0), 450, sunLight);
+//	std::shared_ptr<Hittable> venus = std::make_shared<Sphere>(Point3(-450.0, 200.0, 1000.0), 40, venusMat);
+//	std::shared_ptr<Hittable> earth = std::make_shared<Sphere>(Point3(-120.0, 120.0, 1800.0), 70, earthMat);
+//	std::shared_ptr<Hittable> moon = std::make_shared<Sphere>(Point3(-170.0, 80.0, 1620.0), 20, moonMat);
+//
+//	objects.add(skybox);
+//	objects.add(sun);
+//	objects.add(venus);
+//	objects.add(earth);
+//	objects.add(moon);
+//
+//	return objects;
+//}
+
+
+inline HittableList randomSpheres()
+{
+	HittableList world;
+
+	// Cubemap (Skybox)
+	auto negX = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Sky/negx.ppm"), 0.7);
+	auto negY = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Sky/negy.ppm"), 0.7);
+	auto negZ = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Sky/negz.ppm"), 0.7);
+	auto posX = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Sky/posx.ppm"), 0.7);
+	auto posY = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Sky/posy.ppm"), 0.7);
+	auto posZ = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/cubemaps/Sky/posz.ppm"), 0.7);
 
 	std::vector<std::shared_ptr<Material>> cubemap = { negX, negY, negZ, posX, posY, posZ };
 
-	std::shared_ptr<Hittable> skybox = std::make_shared<Box>(Point3(-1500, -1000, -3000), Point3(3000, 2000, 6000), cubemap);
+	world.add(std::make_shared<Box>(Point3(-2000, -2000, -2000), Vector3(4000, 4000, 4000), cubemap));
 
-	auto sunLight = std::make_shared<DiffuseLight>(Color(20, 15, 12));
-	std::shared_ptr<Material> sunMat = std::make_shared<DiffuseLight>(std::make_shared<ImageTexture>("textures/sun.ppm"), 1.5);
-	std::shared_ptr<Material> earthMat = std::make_shared<Diffuse>(std::make_shared<ImageTexture>("textures/earth_alt.ppm"));
-	std::shared_ptr<Material> moonMat = std::make_shared<Diffuse>(std::make_shared<ImageTexture>("textures/moon.ppm"));
-	std::shared_ptr<Material> venusMat = std::make_shared<Diffuse>(std::make_shared<ImageTexture>("textures/venus.ppm"));
+	auto groundMaterial = std::make_shared<Diffuse>(Color(0.5, 0.5, 0.5));
+	world.add(std::make_shared<Sphere>(Point3(0, -1000, 0), 1000, groundMaterial));
 
+	HittableList miniSpheres;
+	for (int i = -11; i < 11; ++i)
+	{
+		for (int j = -11; j < 11; ++j)
+		{
+			double randomNum = randomDouble();
+			Point3 center = Point3(i + 0.9 * randomDouble(), 0.2, j + 0.9 * randomDouble());
 
-	std::shared_ptr<Hittable> sun = std::make_shared<Sphere>(Point3(0.0, 0.0, 0.0), 400, sunMat);
-	std::shared_ptr<Hittable> lightOfSun = std::make_shared<Sphere>(Point3(0.0, 0.0, 0.0), 450, sunLight);
-	std::shared_ptr<Hittable> venus = std::make_shared<Sphere>(Point3(-450.0, 200.0, 1000.0), 40, venusMat);
-	std::shared_ptr<Hittable> earth = std::make_shared<Sphere>(Point3(-120.0, 120.0, 1800.0), 70, earthMat);
-	std::shared_ptr<Hittable> moon = std::make_shared<Sphere>(Point3(-170.0, 80.0, 1620.0), 20, moonMat);
+			if ((center - Point3(4, 0.2, 0)).length() > 1)
+			{
+				if (randomNum < 0.5)
+				{
+					Color color = Color::random() * Color::random();
+					auto material = std::make_shared<Diffuse>(color);
+					miniSpheres.add(std::make_shared<Sphere>(center, 0.2, material));
+				}
+				else if (randomNum < 0.8)
+				{
+					Color color = Color::random() * Color::random();
+					auto material = std::make_shared<Metal>(color, randomDouble());
+					miniSpheres.add(std::make_shared<Sphere>(center, 0.2, material));
+				}
+				else
+				{
+					auto material =std::make_shared<Dielectric>(1 + randomDouble() * 0.6);
+					miniSpheres.add(std::make_shared<Sphere>(center, 0.2, material));
+				}
+			}
+		}
+	}
 
-	objects.add(skybox);
-	objects.add(sun);
-	objects.add(venus);
-	objects.add(earth);
-	objects.add(moon);
+	world.add(std::make_shared<BVH>(miniSpheres, 0, 0));
 
-	return objects;
+	auto dielectric = std::make_shared<Dielectric>(1.5);
+	auto diffuse = std::make_shared<Diffuse>(Color(0.53, 0.81, 0.94));
+	auto metal = std::make_shared<Metal>(Color(0.7, 0.6, 0.5), 0.0);
+
+	world.add(std::make_shared<Sphere>(Point3(0.0, 1.0, 0.0), 1.0, dielectric));
+	world.add(std::make_shared<Sphere>(Point3(-4.0, 1.0, 0.0), 1.0, diffuse));
+	world.add(std::make_shared<Sphere>(Point3(4.0, 1.0, 0.0), 1.0, metal));
+
+	return world;
 }
-
-
-//inline HittableList generateRandomWorld()
-//{
-//	HittableList world;
-//	Material* groundMaterial = new Diffuse(Color(0.5, 0.5, 0.5));
-//	world.add(std::make_shared<Sphere>(Point3(0, -1000, 0), 1000, groundMaterial).get());
-//
-//	HittableList miniSpheres;
-//	for (int i = -11; i < 11; ++i)
-//	{
-//		for (int j = -11; j < 11; ++j)
-//		{
-//			double randomNum = randomDouble();
-//			Point3 center = Point3(i + 0.9 * randomDouble(), 0.2, j + 0.9 * randomDouble());
-//
-//			if ((center - Point3(4, 0.2, 0)).length() > 1)
-//			{
-//				if (randomNum < 0.5)
-//				{
-//					Color color = Color::random() * Color::random();
-//					Material* material = new Diffuse(color);
-//					miniSpheres.add(std::make_shared<Sphere>(center, 0.2, material).get());
-//				}
-//				else if (randomNum < 0.8)
-//				{
-//					Color color = Color::random() * Color::random();
-//					Material* material = new Metal(color, randomDouble());
-//					miniSpheres.add(std::make_shared<Sphere>(center, 0.2, material).get());
-//				}
-//				else
-//				{
-//					Material* material = new Dielectric(1 + randomDouble() * 0.6);
-//					miniSpheres.add(std::make_shared<Sphere>(center, 0.2, material).get());
-//				}
-//			}
-//		}
-//	}
-//
-//	world.add(new BVH(miniSpheres, 0, 0));
-//
-//	Material* dielectric = new Dielectric(1.5);
-//	Material* diffuse = new Diffuse(Color(0.53, 0.81, 0.94));
-//	Material* metal = new Metal(Color(0.7, 0.6, 0.5), 0.0);
-//
-//	world.add(std::make_shared<Sphere>(Point3(0.0, 1.0, 0.0), 1.0, dielectric).get());
-//	world.add(std::make_shared<Sphere>(Point3(-4.0, 1.0, 0.0), 1.0, diffuse).get());
-//	world.add(std::make_shared<Sphere>(Point3(4.0, 1.0, 0.0), 1.0, metal).get());
-//
-//	return world;
-//}
 
 #endif // !WORLDS_H
 

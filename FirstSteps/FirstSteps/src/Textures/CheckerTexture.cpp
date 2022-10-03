@@ -5,18 +5,8 @@ CheckerTexture::CheckerTexture()
 {
 }
 
-CheckerTexture::CheckerTexture(const Texture* even, const Texture* odd)
-    : m_Even(even), m_Odd(odd)
-{
-}
-
 CheckerTexture::CheckerTexture(const std::shared_ptr<Texture>& even, const std::shared_ptr<Texture>& odd)
     : m_Even(even), m_Odd(odd)
-{
-}
-
-CheckerTexture::CheckerTexture(const SolidColor* firstColor, const SolidColor* secondColor)
-    : m_Even(firstColor), m_Odd(secondColor)
 {
 }
 

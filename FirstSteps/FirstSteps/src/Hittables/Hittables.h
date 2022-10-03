@@ -9,6 +9,8 @@
 #include "Sphere.h"
 #include "Plane.h"
 #include "Box.h"
+#include "Translate.h"
+#include "Rotate.h"
 
 #endif // !HITTABLES_H
 

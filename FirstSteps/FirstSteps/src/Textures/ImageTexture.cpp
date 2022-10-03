@@ -2,7 +2,6 @@
 
 #include <fstream>
 #include <stdexcept>
-#include <string>
 
 ImageTexture::ImageTexture(const char* imagePath)
 {

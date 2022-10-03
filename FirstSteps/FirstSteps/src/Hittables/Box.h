@@ -15,7 +15,7 @@
 class Box : public Hittable
 {
 public:
-	Box(const Point3& origin, const Point3& dimensions, std::shared_ptr<Material>);
+	Box(const Point3& origin, const Point3& dimensions, std::shared_ptr<Material> material);
 	Box(const Point3& origin, const Point3& dimensions, const std::vector<std::shared_ptr<Material>>& cubeMap);
 
 	virtual bool isHit(const Ray& ray, double minT, double maxT, HitRecord& record) const override;
