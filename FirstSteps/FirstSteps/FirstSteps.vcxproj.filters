@@ -84,6 +84,9 @@
     <ClCompile Include="src\Hittables\Rotate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Multi-Threading\WorkerWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Multi-Threading\Worker.h">
@@ -188,5 +191,11 @@
     <ClInclude Include="src\Utility\Scenes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Multi-Threading\WorkerWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
